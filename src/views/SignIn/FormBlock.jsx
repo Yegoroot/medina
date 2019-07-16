@@ -6,13 +6,11 @@ import { withStyles } from "@material-ui/core";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import PropTypes from "prop-types";
 
-import {
-  Typography,
-  // Button,
-  IconButton,
-  TextField
-} from "@material-ui/core";
+import { Typography, IconButton, TextField } from "@material-ui/core";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+
+import firebase from "firebase/app";
+import "firebase/auth";
 
 class FormBlock extends React.Component {
   handleBack = () => {
@@ -21,6 +19,19 @@ class FormBlock extends React.Component {
   };
 
   render() {
+    let uiConfig = {
+      signInFlow: "popup",
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID
+      ],
+      callbacks: {
+        signInSuccessWithAuthResult: data => {
+          // this.signInSuccessWithAuthResult(data);
+        }
+      }
+    };
+
     let {
       classes,
       values,
@@ -28,10 +39,8 @@ class FormBlock extends React.Component {
       // isValid,
       submitError,
       errors,
-      handleFieldChange,
+      handleFieldChange
       // handleSignIn,
-      firebase,
-      uiConfig
     } = this.props;
 
     const showEmailError = touched.email && errors.email;
@@ -141,9 +150,7 @@ FormBlock.propTypes = {
   className: PropTypes.string,
   handleFieldChange: PropTypes.func,
   touched: PropTypes.object,
-  handleSignIn: PropTypes.func,
-  firebase: PropTypes.any,
-  uiConfig: PropTypes.object
+  handleSignIn: PropTypes.func
 };
 
 export default compose(
