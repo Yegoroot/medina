@@ -11,6 +11,8 @@ import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 import firebase from "firebase/app";
 import "firebase/auth";
+import { signIn, moduleName } from "ducks/auth";
+import { connect } from "react-redux";
 
 class FormBlock extends React.Component {
   handleBack = () => {
@@ -26,9 +28,7 @@ class FormBlock extends React.Component {
         firebase.auth.FacebookAuthProvider.PROVIDER_ID
       ],
       callbacks: {
-        signInSuccessWithAuthResult: data => {
-          // this.signInSuccessWithAuthResult(data);
-        }
+        signInSuccessWithAuthResult: data => this.props.signIn(data)
       }
     };
 
@@ -150,10 +150,17 @@ FormBlock.propTypes = {
   className: PropTypes.string,
   handleFieldChange: PropTypes.func,
   touched: PropTypes.object,
-  handleSignIn: PropTypes.func
+  handleSignIn: PropTypes.func,
+  signIn: PropTypes.func
 };
 
 export default compose(
+  connect(
+    state => ({
+      auth: state[moduleName]
+    }),
+    { signIn }
+  ),
   withRouter,
   withStyles(styles)
 )(FormBlock);

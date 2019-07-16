@@ -23,7 +23,7 @@ import schema from "./schema";
 
 // redux
 import { connect } from "react-redux";
-import { moduleName } from "ducks/auth";
+import { moduleName, signOut } from "ducks/auth";
 
 class SignIn extends Component {
   state = {
@@ -81,9 +81,11 @@ class SignIn extends Component {
           </Grid>
 
           <Grid className={classes.content} item lg={7} xs={12}>
-            <button onClick={() => false}>
+            <button onClick={() => this.props.signOut()}>
               Sign Out{" "}
-              {this.props.auth.user ? this.props.auth.user.displayName : ""}
+              {this.props.auth.profile
+                ? this.props.auth.profile.displayName
+                : ""}
             </button>
             {isLoading ? (
               <div style={{ minHeight: "100vh", position: "relative" }}>
@@ -111,12 +113,16 @@ SignIn.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  auth: PropTypes.any
+  auth: PropTypes.object.isRequired,
+  signOut: PropTypes.func.isRequired
 };
 
 export default compose(
-  connect(state => ({
-    auth: state[moduleName]
-  })),
+  connect(
+    state => ({
+      auth: state[moduleName]
+    }),
+    { signOut }
+  ),
   withStyles(styles)
 )(SignIn);

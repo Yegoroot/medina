@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import reducer from "./reducer";
-// import logger from 'redux-logger'
+import logger from "redux-logger";
 import { routerMiddleware } from "connected-react-router";
 import history from "../common/history";
 import createSagaMiddleware from "redux-saga";
@@ -16,7 +16,7 @@ const composeEnhancers =
 const sagaMiddleware = createSagaMiddleware();
 // const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware, routerMiddleware(history), logger))
 const enhancer = composeEnhancers(
-  applyMiddleware(sagaMiddleware, routerMiddleware(history))
+  applyMiddleware(sagaMiddleware, routerMiddleware(history), logger)
 );
 
 const store = createStore(reducer, enhancer);
