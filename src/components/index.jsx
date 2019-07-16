@@ -10,3 +10,4 @@ export { default as SearchInput } from "./SearchInput";
 export { default as Status } from "./Status";
 export { default as ProtectRoute } from "./ProtectRoute";
 export { default as AddUserDialog } from "./AddUserDialog";
+export { default as LaunchScreen } from "./LaunchScreen";

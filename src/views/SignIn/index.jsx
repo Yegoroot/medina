@@ -20,7 +20,7 @@ import { connect } from "react-redux";
 
 import { Grid, Button } from "@material-ui/core";
 
-import LaunchScreen from "components/LaunchScreen/LaunchScreen";
+import { LaunchScreen } from "components";
 
 // Building block
 import ImgBlock from "./ImgBlock";
@@ -92,7 +92,10 @@ class SignIn extends React.Component {
         firebase.auth.FacebookAuthProvider.PROVIDER_ID
       ],
       callbacks: {
-        signInSuccessWithAuthResult: data => this.props.signInSocial(data)
+        signInSuccessWithAuthResult: data => {
+          this.props.signInSocial(data);
+          return false; // component need false in our case
+        }
       }
     };
 
@@ -110,117 +113,106 @@ class SignIn extends React.Component {
           </Grid>
 
           <Grid className={classes.content} item lg={7} xs={12}>
-            <button onClick={() => signOut()}>
-              Sign Out
-              {/* {auth.profile ? auth.profile.user.displayName : ""} */}
-            </button>
-            {auth.isLoading ? (
-              <div style={{ minHeight: "100vh", position: "relative" }}>
-                <LaunchScreen />
+            <button onClick={() => signOut()}>Sign Out</button>
+            <div className={classes.content}>
+              <div className={classes.contentHeader}>
+                <IconButton
+                  className={classes.backButton}
+                  onClick={this.handleBack}
+                >
+                  <ArrowBackIcon />
+                </IconButton>
               </div>
-            ) : (
-              <div className={classes.content}>
-                <div className={classes.contentHeader}>
-                  <IconButton
-                    className={classes.backButton}
-                    onClick={this.handleBack}
-                  >
-                    <ArrowBackIcon />
-                  </IconButton>
-                </div>
-                <div className={classes.contentBody}>
-                  <form className={classes.form}>
-                    <Typography className={classes.title} variant="h2">
-                      Sign in
-                    </Typography>
-                    <Typography className={classes.subtitle} variant="body1">
-                      Sign in with social media
-                    </Typography>
+              <div className={classes.contentBody}>
+                <form className={classes.form}>
+                  <Typography className={classes.title} variant="h2">
+                    Sign in
+                  </Typography>
+                  <Typography className={classes.subtitle} variant="body1">
+                    Sign in with social media
+                  </Typography>
 
-                    {/* -------------------------------- */}
-                    <div className="firebaseAuth">
-                      <StyledFirebaseAuth
-                        uiConfig={uiConfig}
-                        firebaseAuth={firebase.auth()}
-                      />
-                    </div>
-                    {/* -------------------------------- */}
+                  {/* -------------------------------- */}
+                  <div className="firebaseAuth">
+                    <StyledFirebaseAuth
+                      uiConfig={uiConfig}
+                      firebaseAuth={firebase.auth()}
+                    />
+                  </div>
+                  {/* -------------------------------- */}
 
-                    <Typography className={classes.sugestion} variant="body1">
-                      or login with email address
-                    </Typography>
-                    <div className={classes.fields}>
-                      <TextField
-                        className={classes.textField}
-                        label="Email address"
-                        name="email"
-                        onChange={event =>
-                          this.handleFieldChange("email", event.target.value)
-                        }
-                        type="text"
-                        value={values.email}
-                        variant="outlined"
-                      />
-                      {showEmailError && (
-                        <Typography
-                          className={classes.fieldError}
-                          variant="body2"
-                        >
-                          {errors.email[0]}
-                        </Typography>
-                      )}
-                      <TextField
-                        className={classes.textField}
-                        label="Password"
-                        name="password"
-                        onChange={event =>
-                          this.handleFieldChange("password", event.target.value)
-                        }
-                        type="password"
-                        value={values.password}
-                        variant="outlined"
-                      />
-                      {showPasswordError && (
-                        <Typography
-                          className={classes.fieldError}
-                          variant="body2"
-                        >
-                          {errors.password[0]}
-                        </Typography>
-                      )}
-                    </div>
-                    {submitError && (
+                  <Typography className={classes.sugestion} variant="body1">
+                    or login with email address
+                  </Typography>
+                  <div className={classes.fields}>
+                    <TextField
+                      className={classes.textField}
+                      label="Email address"
+                      name="email"
+                      onChange={event =>
+                        this.handleFieldChange("email", event.target.value)
+                      }
+                      type="text"
+                      value={values.email}
+                      variant="outlined"
+                    />
+                    {showEmailError && (
                       <Typography
-                        className={classes.submitError}
+                        className={classes.fieldError}
                         variant="body2"
                       >
-                        {submitError}
+                        {errors.email[0]}
                       </Typography>
                     )}
-                    {auth.isLoading ? (
-                      <LaunchScreen />
-                    ) : (
-                      <Button
-                        className={classes.signInButton}
-                        color="primary"
-                        disabled={!isValid}
-                        onClick={this.handleSignIn}
-                        size="large"
-                        variant="contained"
+                    <TextField
+                      className={classes.textField}
+                      label="Password"
+                      name="password"
+                      onChange={event =>
+                        this.handleFieldChange("password", event.target.value)
+                      }
+                      type="password"
+                      value={values.password}
+                      variant="outlined"
+                    />
+                    {showPasswordError && (
+                      <Typography
+                        className={classes.fieldError}
+                        variant="body2"
                       >
-                        Sign in now
-                      </Button>
+                        {errors.password[0]}
+                      </Typography>
                     )}
-                    <Typography className={classes.signUp} variant="body1">
-                      Dont have an account?{" "}
-                      <Link className={classes.signUpUrl} to="/sign-up">
-                        Sign up
-                      </Link>
+                  </div>
+                  {submitError && (
+                    <Typography className={classes.submitError} variant="body2">
+                      {submitError}
                     </Typography>
-                  </form>
-                </div>
+                  )}
+                  {auth.isLoading ? (
+                    <LaunchScreen />
+                  ) : (
+                    <Button
+                      className={classes.signInButton}
+                      color="primary"
+                      disabled={!isValid}
+                      onClick={this.handleSignIn}
+                      size="large"
+                      variant="contained"
+                    >
+                      Sign in now
+                    </Button>
+                  )}
+                  <Typography className={classes.signUp} variant="body1">
+                    Dont have an account?{" "}
+                    <Link className={classes.signUpUrl} to="/sign-up">
+                      Sign up
+                    </Link>
+                  </Typography>
+                </form>
               </div>
-            )}
+            </div>
+            }
           </Grid>
         </Grid>
       </div>
