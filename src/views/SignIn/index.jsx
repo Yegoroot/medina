@@ -1,31 +1,34 @@
-import React, { Component } from "react";
-// Externals
-import PropTypes from "prop-types";
+import React from "react";
+import { Link, withRouter } from "react-router-dom";
 import compose from "recompose/compose";
-import validate from "validate.js";
-import _ from "underscore";
-import { withStyles } from "@material-ui/core"; // Material helpers
+import styles from "./styles";
+import { withStyles } from "@material-ui/core";
+import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
+import PropTypes from "prop-types";
 
-// Material components
-import { Grid } from "@material-ui/core";
+import { Typography, IconButton, TextField } from "@material-ui/core";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+
+import validate from "validate.js";
+
+import _ from "underscore";
+
+import firebase from "firebase/app";
+import "firebase/auth";
+import { signIn, signOut, moduleName, signInSocial } from "ducks/auth";
+import { connect } from "react-redux";
+
+import { Grid, Button } from "@material-ui/core";
 
 import LaunchScreen from "components/LaunchScreen/LaunchScreen";
 
 // Building block
 import ImgBlock from "./ImgBlock";
-import FormBlock from "./FormBlock";
-
-// Component styles
-import styles from "./styles";
 
 // Form validation schema
 import schema from "./schema";
 
-// redux
-import { connect } from "react-redux";
-import { moduleName, signOut } from "ducks/auth";
-
-class SignIn extends Component {
+class SignIn extends React.Component {
   state = {
     // EMAIL FORM
     values: {
@@ -57,6 +60,16 @@ class SignIn extends Component {
     this.setState(newState);
   }, 300);
 
+  handleBack = () => {
+    const { history } = this.props;
+    history.goBack();
+  };
+
+  handleSignIn = () => {
+    let { email, password } = this.state.values;
+    this.props.signIn(email, password);
+  };
+
   handleFieldChange = (field, value) => {
     const newState = { ...this.state };
 
@@ -66,12 +79,28 @@ class SignIn extends Component {
     this.setState(newState, this.validateForm);
   };
 
+  handleSignIn = () => {
+    let { email, password } = this.state.values;
+    this.props.signIn(email, password);
+  };
+
   render() {
-    const { classes } = this.props;
+    let uiConfig = {
+      signInFlow: "popup",
+      signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID
+      ],
+      callbacks: {
+        signInSuccessWithAuthResult: data => this.props.signInSocial(data)
+      }
+    };
 
-    const { values, touched, errors, isValid, submitError } = this.state;
+    let { classes, auth, signOut } = this.props;
+    let { values, touched, isValid, submitError, errors } = this.state;
 
-    const { isLoading } = this.props.auth;
+    const showEmailError = touched.email && errors.email;
+    const showPasswordError = touched.password && errors.password;
 
     return (
       <div className={classes.root}>
@@ -81,26 +110,116 @@ class SignIn extends Component {
           </Grid>
 
           <Grid className={classes.content} item lg={7} xs={12}>
-            <button onClick={() => this.props.signOut()}>
-              Sign Out{" "}
-              {this.props.auth.profile
-                ? this.props.auth.profile.displayName
-                : ""}
+            <button onClick={() => signOut()}>
+              Sign Out
+              {/* {auth.profile ? auth.profile.user.displayName : ""} */}
             </button>
-            {isLoading ? (
+            {auth.isLoading ? (
               <div style={{ minHeight: "100vh", position: "relative" }}>
                 <LaunchScreen />
               </div>
             ) : (
-              <FormBlock
-                values={values}
-                errors={errors}
-                isValid={isValid}
-                submitError={submitError}
-                touched={touched}
-                handleFieldChange={this.handleFieldChange}
-                handleSignIn={this.handleSignIn}
-              />
+              <div className={classes.content}>
+                <div className={classes.contentHeader}>
+                  <IconButton
+                    className={classes.backButton}
+                    onClick={this.handleBack}
+                  >
+                    <ArrowBackIcon />
+                  </IconButton>
+                </div>
+                <div className={classes.contentBody}>
+                  <form className={classes.form}>
+                    <Typography className={classes.title} variant="h2">
+                      Sign in
+                    </Typography>
+                    <Typography className={classes.subtitle} variant="body1">
+                      Sign in with social media
+                    </Typography>
+
+                    {/* -------------------------------- */}
+                    <div className="firebaseAuth">
+                      <StyledFirebaseAuth
+                        uiConfig={uiConfig}
+                        firebaseAuth={firebase.auth()}
+                      />
+                    </div>
+                    {/* -------------------------------- */}
+
+                    <Typography className={classes.sugestion} variant="body1">
+                      or login with email address
+                    </Typography>
+                    <div className={classes.fields}>
+                      <TextField
+                        className={classes.textField}
+                        label="Email address"
+                        name="email"
+                        onChange={event =>
+                          this.handleFieldChange("email", event.target.value)
+                        }
+                        type="text"
+                        value={values.email}
+                        variant="outlined"
+                      />
+                      {showEmailError && (
+                        <Typography
+                          className={classes.fieldError}
+                          variant="body2"
+                        >
+                          {errors.email[0]}
+                        </Typography>
+                      )}
+                      <TextField
+                        className={classes.textField}
+                        label="Password"
+                        name="password"
+                        onChange={event =>
+                          this.handleFieldChange("password", event.target.value)
+                        }
+                        type="password"
+                        value={values.password}
+                        variant="outlined"
+                      />
+                      {showPasswordError && (
+                        <Typography
+                          className={classes.fieldError}
+                          variant="body2"
+                        >
+                          {errors.password[0]}
+                        </Typography>
+                      )}
+                    </div>
+                    {submitError && (
+                      <Typography
+                        className={classes.submitError}
+                        variant="body2"
+                      >
+                        {submitError}
+                      </Typography>
+                    )}
+                    {auth.isLoading ? (
+                      <LaunchScreen />
+                    ) : (
+                      <Button
+                        className={classes.signInButton}
+                        color="primary"
+                        disabled={!isValid}
+                        onClick={this.handleSignIn}
+                        size="large"
+                        variant="contained"
+                      >
+                        Sign in now
+                      </Button>
+                    )}
+                    <Typography className={classes.signUp} variant="body1">
+                      Dont have an account?{" "}
+                      <Link className={classes.signUpUrl} to="/sign-up">
+                        Sign up
+                      </Link>
+                    </Typography>
+                  </form>
+                </div>
+              </div>
             )}
           </Grid>
         </Grid>
@@ -110,11 +229,13 @@ class SignIn extends Component {
 }
 
 SignIn.propTypes = {
-  className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  signOut: PropTypes.func.isRequired
+  className: PropTypes.string,
+  auth: PropTypes.object,
+  signIn: PropTypes.func,
+  signInSocial: PropTypes.func,
+  signOut: PropTypes.func
 };
 
 export default compose(
@@ -122,7 +243,8 @@ export default compose(
     state => ({
       auth: state[moduleName]
     }),
-    { signOut }
+    { signIn, signOut, signInSocial }
   ),
-  withStyles(styles)
+  withStyles(styles),
+  withRouter
 )(SignIn);
