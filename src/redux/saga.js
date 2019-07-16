@@ -1,5 +1,5 @@
 import { saga as authSaga } from "../ducks/auth";
-import { saga as authSaga2 } from "../ducks/auth2";
+import { saga as authSaga2 } from "../ducks/auth";
 // import { saga as locationSaga } from "../ducks/location";
 import { saga as usersSaga } from "../ducks/users";
 import { saga as projectsSaga } from "../ducks/projects";

@@ -23,7 +23,7 @@ import schema from "./schema";
 
 // redux
 import { connect } from "react-redux";
-import { signRequest } from "ducks/auth";
+import { signIn } from "ducks/auth";
 import { push } from "connected-react-router";
 
 // firebase
@@ -80,7 +80,7 @@ class SignIn extends Component {
     } else {
       console.log("signOut");
       firebase.auth().signOut();
-      signRequest(null);
+      signIn(null);
     }
   };
 
@@ -171,7 +171,7 @@ class SignIn extends Component {
     this._isMounted = true;
 
     const {
-      signRequest
+      signIn
       //  push
     } = this.props;
 
@@ -185,7 +185,7 @@ class SignIn extends Component {
         }
 
         // отправляем или null или object
-        signRequest(user);
+        signIn(user);
       }
     });
   }
@@ -200,7 +200,7 @@ SignIn.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  signRequest: PropTypes.func,
+  signIn: PropTypes.func,
   auth: PropTypes.any,
   push: PropTypes.func
 };
@@ -211,7 +211,7 @@ export default compose(
       auth: state.auth
     }),
     {
-      signRequest,
+      signIn,
       push
     }
   ),

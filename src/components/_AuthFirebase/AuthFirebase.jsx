@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 // redux
 import { connect } from "react-redux";
-import { signRequest } from "ducks/auth";
+import { signIn } from "ducks/auth";
 
 // firebase
 import firebase from "firebase/app";
@@ -18,13 +18,13 @@ class SignIn extends Component {
   componentDidMount() {
     this._isMounted = true;
 
-    const { signRequest } = this.props;
+    const { signIn } = this.props;
 
     this.removeAuthObserver = firebase.auth().onAuthStateChanged(user => {
       console.log("AUTH COMPONENT", user);
       if (this._isMounted) {
         // отправляем или null или object
-        signRequest(user);
+        signIn(user);
       }
     });
   }
@@ -39,7 +39,7 @@ class SignIn extends Component {
 }
 
 SignIn.propTypes = {
-  signRequest: PropTypes.func,
+  signIn: PropTypes.func,
   auth: PropTypes.any
 };
 
@@ -48,6 +48,6 @@ export default connect(
     auth: state.auth
   }),
   {
-    signRequest
+    signIn
   }
 )(SignIn);

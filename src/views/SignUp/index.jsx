@@ -9,7 +9,7 @@ import _ from "underscore";
 
 // redux
 import { connect } from "react-redux";
-import { signUp, moduleName } from "ducks/auth2";
+import { signUp, moduleName } from "ducks/auth";
 
 // Material helpers
 import { withStyles } from "@material-ui/core";
