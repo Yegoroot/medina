@@ -15,7 +15,7 @@ const initState = {
 export const moduleName = "auth2";
 const prefix = `${appName}/${moduleName}`;
 export const SIGN_UP_REQUEST = `${prefix}/SIGN_UP_REQUEST`;
-export const SIGN_UP_SUCCESS = `${prefix}/SIGN_UP_SUCCESS`;
+export const SIGN_IN_SUCCESS = `${prefix}/SIGN_IN_SUCCESS`;
 export const SIGN_UP_ERROR = `${prefix}/SIGN_UP_ERROR`;
 
 // REDUCER
@@ -28,7 +28,7 @@ export default function reducer(state = initState, action) {
         ...state,
         isLoading: true
       };
-    case SIGN_UP_SUCCESS:
+    case SIGN_IN_SUCCESS:
       return {
         ...state,
         isLoading: false,
@@ -65,11 +65,11 @@ export const signUpRequestSaga = function*(action) {
     .auth()
     .createUserWithEmailAndPassword(email, password)
     .then(user => {
-      console.log("User", user);
-      put({
-        type: SIGN_UP_SUCCESS,
-        payload: user
-      });
+      // console.log("User", user);
+      // put({
+      //   type: SIGN_IN_SUCCESS,
+      //   payload: user
+      // });
     });
 };
 

@@ -13,6 +13,7 @@ import SignUp from "./views/SignUp";
 import SignIn from "./views/SignIn";
 import UnderDevelopment from "./views/UnderDevelopment";
 import NotFound from "./views/NotFound";
+import { ProtectRoute } from "components";
 
 export default class Routes extends Component {
   render() {
@@ -24,7 +25,7 @@ export default class Routes extends Component {
         <Route component={ProjectList} exact path="/projects" />
         <Route component={Typography} exact path="/typography" />
         <Route component={Icons} exact path="/icons" />
-        <Route component={Account} exact path="/account" />
+        <ProtectRoute component={Account} exact path="/account" />
         <Route component={Settings} exact path="/settings" />
         <Route component={SignUp} exact path="/sign-up" />
         <Route component={SignIn} exact path="/sign-in" />
