@@ -4,7 +4,7 @@
 
 ## Если что то не так с ... :
 
-### route
+### route (не обновляет) то посмотри ProtectRoute и можешь добавить
 
 > pay attention of
 

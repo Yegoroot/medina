@@ -6,10 +6,12 @@ import history from "../common/history";
 import projectsReducer, {
   moduleName as projectsModule
 } from "../ducks/projects";
+import usersReducer, { moduleName as usersModule } from "../ducks/users";
 
 export default combineReducers({
   router: connectRouter(history),
   [authModule]: authReduces,
   [authModule2]: authReduces2,
-  [projectsModule]: projectsReducer
+  [projectsModule]: projectsReducer,
+  [usersModule]: usersReducer
 });

@@ -8,15 +8,15 @@ import { moduleName } from "ducks/auth";
 const PrivateRoute = ({ component: Component, auth, ...rest }) => (
   <Route
     {...rest}
-    render={props => {
-      return auth.user ? (
+    render={props =>
+      auth.user ? (
         <Component {...props} />
       ) : (
         <Redirect
           to={{ pathname: "/sign-in", state: { from: props.location } }}
         />
-      );
-    }}
+      )
+    }
   />
 );
 
@@ -26,11 +26,9 @@ PrivateRoute.propTypes = {
   auth: PropTypes.object.isRequired
 };
 
-export default connect(
-  state => ({
-    auth: state[moduleName]
-  }),
-  null,
-  null,
-  { pure: false }
-)(PrivateRoute);
+// withRouter for get ride of error in console
+export default //  withRouter(
+connect(state => ({
+  auth: state[moduleName]
+}))(PrivateRoute);
+// );

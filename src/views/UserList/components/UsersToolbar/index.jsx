@@ -1,33 +1,48 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // Externals
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { withStyles } from "@material-ui/core";
 
 // Material components
-import { Button, IconButton } from '@material-ui/core';
+import { Button, IconButton } from "@material-ui/core";
 
 // Material icons
 import {
   ArrowDownward as ArrowDownwardIcon,
   ArrowUpward as ArrowUpwardIcon,
   Delete as DeleteIcon
-} from '@material-ui/icons';
+} from "@material-ui/icons";
 
 // Shared components
-import { DisplayMode, SearchInput } from 'components';
+import { DisplayMode, SearchInput } from "components";
 
 // Component styles
-import styles from './styles';
+import styles from "./styles";
+
+import { AddUserDialog } from "components";
 
 class UsersToolbar extends Component {
+  state = {
+    open: false // modal
+  };
+
+  handlerOpen = () => {
+    this.setState({ open: true });
+  };
+  handleClose = () => {
+    this.setState({ open: false });
+  };
+
   render() {
     const { classes, className, selectedUsers } = this.props;
 
     const rootClassName = classNames(classes.root, className);
+
+    let { open } = this.state;
 
     return (
       <div className={rootClassName}>
@@ -60,6 +75,7 @@ class UsersToolbar extends Component {
             color="primary"
             size="small"
             variant="outlined"
+            onClick={() => this.handlerOpen()}
           >
             Add
           </Button>
@@ -72,6 +88,8 @@ class UsersToolbar extends Component {
           <span className={classes.spacer} />
           <DisplayMode mode="list" />
         </div>
+
+        <AddUserDialog open={open} handleClose={this.handleClose} />
       </div>
     );
   }

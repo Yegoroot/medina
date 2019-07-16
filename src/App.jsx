@@ -8,8 +8,6 @@ import history from "./common/history";
 import "react-perfect-scrollbar/dist/css/styles.css"; // Styles
 import "./assets/scss/index.scss"; // Styles
 
-// import AuthFirebase from "components/AuthFirebase/AuthFirebase";
-
 import Routes from "./Routes"; // Routes
 
 class App extends Component {
@@ -18,7 +16,6 @@ class App extends Component {
       <Provider store={store}>
         <ConnectedRouter history={history}>
           <>
-            {/* <AuthFirebase /> */}
             <Routes />
           </>
         </ConnectedRouter>

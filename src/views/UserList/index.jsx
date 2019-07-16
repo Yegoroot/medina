@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // Externals
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { withStyles } from "@material-ui/core";
 
 // Material components
-import { CircularProgress, Typography } from '@material-ui/core';
+import { CircularProgress, Typography } from "@material-ui/core";
 
 // Shared layouts
-import { Dashboard as DashboardLayout } from 'layouts';
+import { Dashboard as DashboardLayout } from "layouts";
 
 // Shared services
-import { getUsers } from 'services/user';
+import { getUsers } from "services/user";
 
 // Custom components
-import { UsersToolbar, UsersTable } from './components';
+import { UsersToolbar, UsersTable } from "./components";
 
 // Component styles
-import styles from './style';
+import styles from "./style";
 
 class UserList extends Component {
   signal = true;
