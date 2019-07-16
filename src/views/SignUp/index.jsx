@@ -9,7 +9,7 @@ import _ from "underscore";
 
 // redux
 import { connect } from "react-redux";
-import { signUp } from "ducks/auth2";
+import { signUp, moduleName } from "ducks/auth2";
 
 // Material helpers
 import { withStyles } from "@material-ui/core";
@@ -66,7 +66,6 @@ class SignUpPage extends Component {
       policy: null
     },
     isValid: false,
-    isLoading: false,
     submitError: null
   };
 
@@ -100,10 +99,8 @@ class SignUpPage extends Component {
 
   handleSignUp = async () => {
     try {
-      const { history } = this.props;
+      // const { history } = this.props;
       const { values } = this.state;
-
-      this.setState({ isLoading: true });
 
       // await signUp({
       //   email: values.email,
@@ -114,7 +111,6 @@ class SignUpPage extends Component {
       // history.push("/sign-in");
     } catch (error) {
       this.setState({
-        isLoading: false,
         serviceError: error
       });
     }
@@ -122,14 +118,9 @@ class SignUpPage extends Component {
 
   render() {
     const { classes } = this.props;
-    const {
-      values,
-      touched,
-      errors,
-      isValid,
-      submitError,
-      isLoading
-    } = this.state;
+    const { values, touched, errors, isValid, submitError } = this.state;
+
+    let { isLoading } = this.props.auth;
 
     const showEmailError =
       touched.email && errors.email ? errors.email[0] : false;
@@ -283,15 +274,15 @@ SignUpPage.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  signUp: PropTypes.func.isRequired
+  signUp: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
 };
 
 export default compose(
   connect(
-    // state=> ({
-
-    // }),
-    null,
+    state => ({
+      auth: state[moduleName] // auth
+    }),
     { signUp }
   ),
   withRouter,

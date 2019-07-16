@@ -1,14 +1,14 @@
 import { put, takeEvery } from "redux-saga/effects";
 import { appName } from "../common/config";
-import { delay } from "redux-saga/effects";
 
 // FIREBASE
 import firebase from "firebase/app";
 import "firebase/auth";
 
 const initState = {
-  isLoading: true,
-  user: null
+  user: null,
+  error: null,
+  isLoading: false
 };
 
 // CONSTANTs
@@ -20,20 +20,26 @@ export const SIGN_UP_ERROR = `${prefix}/SIGN_UP_ERROR`;
 
 // REDUCER
 export default function reducer(state = initState, action) {
-  const { type, payload } = action;
+  const { type, payload, error } = action;
 
   switch (type) {
     case SIGN_UP_REQUEST:
-      return Object.assign({}, state, {
+      return {
         ...state,
         isLoading: true
-      });
+      };
     case SIGN_UP_SUCCESS:
-      return Object.assign({}, state, {
+      return {
         ...state,
         isLoading: false,
         user: payload
-      });
+      };
+    case SIGN_UP_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error
+      };
 
     default:
       return state;
@@ -43,21 +49,28 @@ export default function reducer(state = initState, action) {
 // ACTIONS
 export function signUp(email, password) {
   return {
-    type: SIGN_UP_REQUEST
-    // payload: person
+    type: SIGN_UP_REQUEST,
+    payload: {
+      email,
+      password
+    }
   };
 }
 
 // SAGAS
 export const signUpRequestSaga = function*(action) {
-  let { payload } = action;
-  let user = payload ? { ...action.payload } : null;
-
-  yield delay(1200);
-  yield put({
-    type: SIGN_UP_SUCCESS,
-    payload: user
-  });
+  let { email, password } = action.payload;
+  console.log("signUpRequestSaga run");
+  yield firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then(user => {
+      console.log("User", user);
+      put({
+        type: SIGN_UP_SUCCESS,
+        payload: user
+      });
+    });
 };
 
 // ГЛАВНАЯ НАША SAGA

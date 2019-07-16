@@ -170,7 +170,10 @@ class SignIn extends Component {
   componentDidMount() {
     this._isMounted = true;
 
-    const { signRequest, push } = this.props;
+    const {
+      signRequest
+      //  push
+    } = this.props;
 
     this.removeAuthObserver = firebase.auth().onAuthStateChanged(user => {
       console.log("firebase.auth().onAuthStateChanged USER - ", user);
