@@ -212,7 +212,6 @@ class SignIn extends React.Component {
                 </form>
               </div>
             </div>
-            }
           </Grid>
         </Grid>
       </div>
