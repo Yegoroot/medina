@@ -120,6 +120,7 @@ export const signUpSaga = function*(action) {
   const auth = firebase.auth();
 
   try {
+    // firebase method
     const profile = yield call(
       [auth, auth.createUserWithEmailAndPassword],
       action.payload.email,
@@ -153,7 +154,7 @@ export function signIn(email, password) {
 
 /**
  *
- * НА ВСЯКИЙ СЛУЧАЙ ДРУГИМ СПОСОБОМ (не takeEvery)
+ * а эта сага выполнена через take (не takeEvery) // на всякий случай
  */
 
 // SIGNIN signInWithEmailAndPassword
@@ -164,6 +165,7 @@ export const signInSaga = function*() {
     const action = yield take(SIGN_IN_REQUEST);
 
     try {
+      // firebase method
       const profile = yield call(
         [auth, auth.signInWithEmailAndPassword],
         action.payload.email,
