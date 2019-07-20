@@ -1,6 +1,6 @@
 import { put, takeEvery, call, cps, take, all } from "redux-saga/effects";
 import { appName } from "../common/config";
-// import { push } from "connected-react-router";
+import { push } from "connected-react-router";
 
 // FIREBASE
 import firebase from "firebase/app";
@@ -129,7 +129,8 @@ export const signUpSaga = function*(action) {
       type: SIGN_IN_SUCCESS,
       payload: profile
     });
-    // yield put(reset("authSignUp"));
+
+    yield put(push("/dashboard"));
   } catch (error) {
     alert("Ошибка, next SIGN_UP_ERROR");
     yield put({
@@ -172,6 +173,7 @@ export const signInSaga = function*() {
         type: SIGN_IN_SUCCESS,
         payload: profile
       });
+      yield put(push("/dashboard"));
     } catch (error) {
       alert(error.message);
       yield put({
