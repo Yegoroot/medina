@@ -1,12 +1,18 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
-import compose from "recompose/compose";
+import { compose } from "redux";
 import styles from "./styles";
 import { withStyles } from "@material-ui/core";
 import { ArrowBack as ArrowBackIcon } from "@material-ui/icons";
 import PropTypes from "prop-types";
 
-import { Typography, IconButton, TextField } from "@material-ui/core";
+import {
+  Typography,
+  IconButton,
+  TextField,
+  Grid,
+  Button
+} from "@material-ui/core";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 import validate from "validate.js";
@@ -18,9 +24,11 @@ import "firebase/auth";
 import { signIn, signOut, moduleName, signInSocial } from "ducks/auth";
 import { connect } from "react-redux";
 
-import { Grid, Button } from "@material-ui/core";
-
-import { LaunchScreen } from "components";
+import {
+  LaunchScreen
+  // Snackbar
+} from "components";
+import { messageShow } from "ducks/message";
 
 // Building block
 import ImgBlock from "./ImgBlock";
@@ -79,10 +87,17 @@ class SignIn extends React.Component {
     this.setState(newState, this.validateForm);
   };
 
-  handleSignIn = () => {
-    let { email, password } = this.state.values;
-    this.props.signIn(email, password);
-  };
+  // handleMessage = () => {
+  //   this.props.messageShow({
+  //     message:
+  //       "hello and welcomw to another life in this place we can use something interersting",
+  //     variant: "error",
+  //     position: {
+  //       vertical: "bottom",
+  //       horizontal: "right"
+  //     }
+  //   });
+  // };
 
   render() {
     let uiConfig = {
@@ -114,6 +129,10 @@ class SignIn extends React.Component {
 
           <Grid className={classes.content} item lg={7} xs={12}>
             <button onClick={() => signOut()}>Sign Out</button>
+
+            {/* <button onClick={this.handleMessage}>Message Show </button>
+            <Snackbar /> */}
+
             <div className={classes.content}>
               <div className={classes.contentHeader}>
                 <IconButton
@@ -226,7 +245,8 @@ SignIn.propTypes = {
   auth: PropTypes.object,
   signIn: PropTypes.func,
   signInSocial: PropTypes.func,
-  signOut: PropTypes.func
+  signOut: PropTypes.func,
+  messageShow: PropTypes.func
 };
 
 export default compose(
@@ -234,7 +254,7 @@ export default compose(
     state => ({
       auth: state[moduleName]
     }),
-    { signIn, signOut, signInSocial }
+    { signIn, signOut, signInSocial, messageShow }
   ),
   withStyles(styles),
   withRouter

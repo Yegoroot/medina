@@ -6,10 +6,12 @@ import projectsReducer, {
   moduleName as projectsModule
 } from "../ducks/projects";
 import usersReducer, { moduleName as usersModule } from "../ducks/users";
+import messageReducer, { moduleName as messageModule } from "../ducks/message";
 
 export default combineReducers({
   router: connectRouter(history),
   [authModule]: authReduces,
   [projectsModule]: projectsReducer,
-  [usersModule]: usersReducer
+  [usersModule]: usersReducer,
+  [messageModule]: messageReducer
 });
