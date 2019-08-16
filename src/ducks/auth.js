@@ -130,7 +130,6 @@ export const signUpSaga = function*(action) {
       type: SIGN_IN_SUCCESS,
       payload: profile
     });
-
     yield put(push("/dashboard"));
   } catch (error) {
     alert("Ошибка, next SIGN_UP_ERROR");
@@ -205,6 +204,7 @@ export const signInSocialSaga = function*(action) {
     type: SIGN_IN_SOCIAL_SUCCESS,
     payload: profile
   });
+  yield put(push("/dashboard"));
 };
 
 // SIGN OUT
@@ -223,7 +223,7 @@ export const signOutSaga = function*() {
     yield put({
       type: SIGN_OUT_SUCCESS
     });
-    // yield put(push("/sign-in"));
+    yield put(push("/sign-in"));
   } catch (error) {
     yield put({
       type: SIGN_OUT_ERROR,

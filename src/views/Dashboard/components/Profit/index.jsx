@@ -1,23 +1,23 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // Externals
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
+import classNames from "classnames";
+import PropTypes from "prop-types";
 
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { withStyles } from "@material-ui/core";
 
 // Material components
-import { Typography } from '@material-ui/core';
+import { Typography } from "@material-ui/core";
 
 // Material icons
-import { AttachMoney as AttachMoneyIcon } from '@material-ui/icons';
+import { AttachMoney as AttachMoneyIcon } from "@material-ui/icons";
 
 // Shared components
-import { Paper } from 'components';
+import { Paper } from "components";
 
 // Component styles
-import styles from './styles';
+import styles from "./styles";
 
 class Profit extends Component {
   render() {
@@ -26,22 +26,13 @@ class Profit extends Component {
     const rootClassName = classNames(classes.root, className);
 
     return (
-      <Paper
-        {...rest}
-        className={rootClassName}
-      >
+      <Paper {...rest} className={rootClassName}>
         <div className={classes.content}>
           <div className={classes.details}>
-            <Typography
-              className={classes.title}
-              variant="body2"
-            >
+            <Typography className={classes.title} variant="body2">
               TOTAL PROFIT
             </Typography>
-            <Typography
-              className={classes.value}
-              variant="h3"
-            >
+            <Typography className={classes.value} variant="h3">
               $23,200
             </Typography>
           </div>

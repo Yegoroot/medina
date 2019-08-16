@@ -1,13 +1,11 @@
-import React, { Component, Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
-
+import React, { Component, Fragment } from "react";
 // Externals
-import classNames from 'classnames';
-import compose from 'recompose/compose';
-import PropTypes from 'prop-types';
+import classNames from "classnames";
+import compose from "recompose/compose";
+import PropTypes from "prop-types";
 
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { withStyles } from "@material-ui/core";
 
 // Material components
 import {
@@ -15,25 +13,30 @@ import {
   IconButton,
   Popover,
   Toolbar,
-  Typography
-} from '@material-ui/core';
+  Typography,
+  Button
+} from "@material-ui/core";
 
 // Material icons
 import {
   Menu as MenuIcon,
   Close as CloseIcon,
   NotificationsOutlined as NotificationsIcon,
-  Input as InputIcon
-} from '@material-ui/icons';
+  ExitToApp as OutputIcon
+} from "@material-ui/icons";
 
 // Shared services
-import { getNotifications } from 'services/notification';
+import { getNotifications } from "services/notification";
 
 // Custom components
-import { NotificationList } from './components';
+import { NotificationList } from "./components";
 
 // Component styles
-import styles from './styles';
+import styles from "./styles";
+
+import { signOut, moduleName } from "ducks/auth";
+import { connect } from "react-redux";
+import { push } from "connected-react-router";
 
 class Topbar extends Component {
   signal = true;
@@ -73,13 +76,6 @@ class Topbar extends Component {
     this.signal = false;
   }
 
-  handleSignOut = () => {
-    const { history } = this.props;
-
-    localStorage.setItem('isAuthenticated', false);
-    history.push('/sign-in');
-  };
-
   handleShowNotifications = event => {
     this.setState({
       notificationsEl: event.currentTarget
@@ -98,12 +94,31 @@ class Topbar extends Component {
       className,
       title,
       isSidebarOpen,
-      onToggleSidebar
+      onToggleSidebar,
+      //
+      push,
+      auth,
+      signOut
     } = this.props;
     const { notifications, notificationsCount, notificationsEl } = this.state;
 
     const rootClassName = classNames(classes.root, className);
     const showNotifications = Boolean(notificationsEl);
+
+    const signButton = () => {
+      return auth.profile ? (
+        <Button className={classes.signInButton} onClick={() => signOut()}>
+          logOut
+        </Button>
+      ) : (
+        <IconButton
+          className={classes.signOutButton}
+          onClick={() => push("/sign-in")}
+        >
+          <OutputIcon />
+        </IconButton>
+      );
+    };
 
     return (
       <Fragment>
@@ -116,10 +131,7 @@ class Topbar extends Component {
             >
               {isSidebarOpen ? <CloseIcon /> : <MenuIcon />}
             </IconButton>
-            <Typography
-              className={classes.title}
-              variant="h4"
-            >
+            <Typography className={classes.title} variant="h4">
               {title}
             </Typography>
             <IconButton
@@ -134,25 +146,21 @@ class Topbar extends Component {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-            <IconButton
-              className={classes.signOutButton}
-              onClick={this.handleSignOut}
-            >
-              <InputIcon />
-            </IconButton>
+
+            {signButton()}
           </Toolbar>
         </div>
         <Popover
           anchorEl={notificationsEl}
           anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center'
+            vertical: "bottom",
+            horizontal: "center"
           }}
           onClose={this.handleCloseNotifications}
           open={showNotifications}
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center'
+            vertical: "top",
+            horizontal: "center"
           }}
         >
           <NotificationList
@@ -168,10 +176,12 @@ class Topbar extends Component {
 Topbar.propTypes = {
   className: PropTypes.string,
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
   isSidebarOpen: PropTypes.bool,
   onToggleSidebar: PropTypes.func,
-  title: PropTypes.string
+  title: PropTypes.string,
+  signOut: PropTypes.func,
+  push: PropTypes.func,
+  auth: PropTypes.object
 };
 
 Topbar.defaultProps = {
@@ -179,6 +189,11 @@ Topbar.defaultProps = {
 };
 
 export default compose(
-  withRouter,
+  connect(
+    state => ({
+      auth: state[moduleName]
+    }),
+    { signOut, push }
+  ),
   withStyles(styles)
 )(Topbar);

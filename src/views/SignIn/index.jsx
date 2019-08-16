@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { compose } from "redux";
 import styles from "./styles";
 import { withStyles } from "@material-ui/core";
@@ -21,7 +21,7 @@ import _ from "underscore";
 
 import firebase from "firebase/app";
 import "firebase/auth";
-import { signIn, signOut, moduleName, signInSocial } from "ducks/auth";
+import { signIn, moduleName, signInSocial } from "ducks/auth";
 import { connect } from "react-redux";
 
 import {
@@ -114,7 +114,7 @@ class SignIn extends React.Component {
       }
     };
 
-    let { classes, auth, signOut } = this.props;
+    let { classes, auth } = this.props;
     let { values, touched, isValid, submitError, errors } = this.state;
 
     const showEmailError = touched.email && errors.email;
@@ -128,8 +128,6 @@ class SignIn extends React.Component {
           </Grid>
 
           <Grid className={classes.content} item lg={7} xs={12}>
-            <button onClick={() => signOut()}>Sign Out</button>
-
             {/* <button onClick={this.handleMessage}>Message Show </button>
             <Snackbar /> */}
 
@@ -245,7 +243,7 @@ SignIn.propTypes = {
   auth: PropTypes.object,
   signIn: PropTypes.func,
   signInSocial: PropTypes.func,
-  signOut: PropTypes.func,
+
   messageShow: PropTypes.func
 };
 
@@ -254,8 +252,7 @@ export default compose(
     state => ({
       auth: state[moduleName]
     }),
-    { signIn, signOut, signInSocial, messageShow }
+    { signIn, signInSocial, messageShow }
   ),
-  withStyles(styles),
-  withRouter
+  withStyles(styles)
 )(SignIn);
