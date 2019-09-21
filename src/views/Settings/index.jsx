@@ -13,7 +13,7 @@ import { Grid } from "@material-ui/core";
 import { Dashboard as DashboardLayout } from "layouts";
 
 // Custom components
-import { Notifications, Password } from "./components";
+import { Permissions, Password } from "./components";
 
 // Component styles
 const styles = theme => ({
@@ -31,7 +31,7 @@ class Settings extends Component {
         <div className={classes.root}>
           <Grid container spacing={4}>
             <Grid item md={7} xs={12}>
-              <Notifications />
+              <Permissions />
             </Grid>
             <Grid item md={5} xs={12}>
               <Password />
