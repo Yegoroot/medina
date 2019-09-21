@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 // Externals
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import moment from 'moment';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import moment from "moment";
+import PerfectScrollbar from "react-perfect-scrollbar";
 
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { withStyles } from "@material-ui/core";
 
 // Material components
 import {
@@ -21,16 +21,16 @@ import {
   TableRow,
   Typography,
   TablePagination
-} from '@material-ui/core';
+} from "@material-ui/core";
 
 // Shared helpers
-import { getInitials } from 'helpers';
+import { getInitials } from "helpers";
 
 // Shared components
-import { Portlet, PortletContent } from 'components';
+import { Portlet, PortletContent } from "components";
 
 // Component styles
-import styles from './styles';
+import styles from "./styles";
 
 class UsersTable extends Component {
   state = {
@@ -176,7 +176,7 @@ class UsersTable extends Component {
                         {user.phone}
                       </TableCell>
                       <TableCell className={classes.tableCell}>
-                        {moment(user.createdAt).format('DD/MM/YYYY')}
+                        {moment(user.createdAt).format("DD/MM/YYYY")}
                       </TableCell>
                     </TableRow>
                   ))}
@@ -185,12 +185,12 @@ class UsersTable extends Component {
           </PerfectScrollbar>
           <TablePagination
             backIconButtonProps={{
-              'aria-label': 'Previous Page'
+              "aria-label": "Previous Page"
             }}
             component="div"
             count={users.length}
             nextIconButtonProps={{
-              'aria-label': 'Next Page'
+              "aria-label": "Next Page"
             }}
             onChangePage={this.handleChangePage}
             onChangeRowsPerPage={this.handleChangeRowsPerPage}
