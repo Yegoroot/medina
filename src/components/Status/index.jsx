@@ -27,7 +27,7 @@ const styles = theme => ({
     width: theme.spacing(3)
   },
   neutral: {
-    backgroundColor: theme.palette.common.neutral
+    backgroundColor: theme.palette.neutral
   },
   primary: {
     backgroundColor: theme.palette.primary.main

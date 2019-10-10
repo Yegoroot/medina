@@ -6,7 +6,7 @@ export default {
   contained: {
     backgroundColor: palette.white,
     "&:hover": {
-      backgroundColor: palette.common.neutral
+      backgroundColor: palette.neutral
     }
   }
 };

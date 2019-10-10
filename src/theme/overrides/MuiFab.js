@@ -6,7 +6,7 @@ export default {
     backgroundColor: palette.white,
     color: palette.text.secondary,
     "&:hover": {
-      backgroundColor: palette.common.neutral
+      backgroundColor: palette.neutral
     }
   }
 };

@@ -1,12 +1,12 @@
 // Palette
-import palette from '../palette';
+import palette from "../palette";
 
 export default {
   root: {
-    borderRadius: '3px',
-    overflow: 'hidden'
+    borderRadius: "3px",
+    overflow: "hidden"
   },
   colorPrimary: {
-    backgroundColor: palette.common.neutral
+    backgroundColor: palette.neutral
   }
 };

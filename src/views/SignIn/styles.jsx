@@ -12,7 +12,7 @@ export default theme => ({
     }
   },
   quote: {
-    backgroundColor: theme.palette.common.neutral,
+    backgroundColor: theme.palette.neutral,
     height: "100%",
     display: "flex",
     justifyContent: "center",

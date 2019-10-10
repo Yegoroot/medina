@@ -1,19 +1,19 @@
+// import { colors } from '@material-ui/core';
+
 const white = "#FFFFFF";
 const black = "#000000";
 
 export default {
   black,
   white,
-  common: {
-    black,
-    neutral: "#E4E7EB",
-    muted: "#9EA0A4"
-  },
+  neutral: "#E4E7EB",
+  // muted: "#9EA0A4"
   primary: {
     contrastText: white,
     main: "#0767DB",
     light: "#F6F9FD",
     dark: "#0B48A0"
+    // dark: colors.indigo[900],
   },
   secondary: {
     contrastText: white,

@@ -2,7 +2,7 @@ export default theme => ({
   root: {
     alignItems: "center",
     backgroundColor: theme.palette.white,
-    border: `1px solid ${theme.palette.common.neutral}`,
+    border: `1px solid ${theme.palette.neutral}`,
     borderRadius: "4px",
     display: "flex",
     flexBasis: "420px",
