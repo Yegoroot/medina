@@ -27,15 +27,15 @@ export default theme => ({
     flexBasis: "600px"
   },
   quoteText: {
-    color: theme.palette.common.white,
+    color: theme.palette.white,
     fontWeight: 300
   },
   name: {
     marginTop: theme.spacing(3),
-    color: theme.palette.common.white
+    color: theme.palette.white
   },
   bio: {
-    color: theme.palette.common.white
+    color: theme.palette.white
   },
   contentWrapper: {},
   content: {

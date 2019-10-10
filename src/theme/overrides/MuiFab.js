@@ -1,11 +1,11 @@
 // Palette
-import palette from '../palette';
+import palette from "../palette";
 
 export default {
   root: {
-    backgroundColor: palette.common.white,
+    backgroundColor: palette.white,
     color: palette.text.secondary,
-    '&:hover': {
+    "&:hover": {
       backgroundColor: palette.common.neutral
     }
   }

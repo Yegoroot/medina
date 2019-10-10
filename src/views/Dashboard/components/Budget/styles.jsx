@@ -24,7 +24,7 @@ export default theme => ({
     width: "4rem"
   },
   icon: {
-    color: theme.palette.common.white,
+    color: theme.palette.white,
     fontSize: "2rem",
     height: "2rem",
     width: "2rem"

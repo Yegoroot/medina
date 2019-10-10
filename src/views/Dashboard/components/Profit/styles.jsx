@@ -11,14 +11,14 @@ export default theme => ({
   details: {},
   title: {
     fontWeight: 700,
-    color: theme.palette.common.white
+    color: theme.palette.white
   },
   value: {
-    color: theme.palette.common.white
+    color: theme.palette.white
   },
   iconWrapper: {
     alignItems: "center",
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.white,
     borderRadius: "50%",
     display: "inline-flex",
     height: "4rem",
