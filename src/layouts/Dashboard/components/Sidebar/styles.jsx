@@ -15,7 +15,7 @@ export default theme => ({
     flexShrink: 0
   },
   logoLink: {
-    fontSize: 0
+    fontSize: 30
   },
   logoImage: {
     cursor: "pointer"

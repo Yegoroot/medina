@@ -5,6 +5,8 @@ import palette from "./palette";
 import typography from "./typography";
 import overrides from "./overrides";
 
+export const rtl = true;
+
 const theme = createMuiTheme({
   palette,
   typography,
@@ -12,7 +14,8 @@ const theme = createMuiTheme({
   zIndex: {
     appBar: 1200,
     drawer: 1100
-  }
+  },
+  rtl
 });
 
 export default theme;

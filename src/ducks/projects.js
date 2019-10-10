@@ -1,5 +1,5 @@
 import { appName } from "common/config";
-import { takeEvery, put, call } from "redux-saga/effects";
+import { takeEvery, put, call, select } from "redux-saga/effects";
 
 // Shared services
 import { getProjects } from "services/project";
@@ -11,15 +11,17 @@ export const moduleName = "projects";
 const prefix = `${appName}/${moduleName}`;
 
 export const REQUSET_GET_PROJECTS = `${prefix}/REQUSET_GET_PROJECTS`;
-export const GET_PROJECTS = `${prefix}/GET_PROJECTS`;
+export const SUCCESS_GET_PROJECT = `${prefix}/SUCCESS_GET_PROJECT`;
+export const ERROR_GET_PROJECT = `${prefix}/ERROR_GET_PROJECT`;
 
 /**
  * REDUCER
  **/
 const initState = {
-  isLoading: false,
+  isLoading: true,
   projects: [],
-  projectsTotal: 0
+  projectsTotal: 0,
+  error: null
 };
 
 export default function reducer(state = initState, action) {
@@ -31,11 +33,19 @@ export default function reducer(state = initState, action) {
         ...state,
         isLoading: true
       });
-    case GET_PROJECTS:
+    case SUCCESS_GET_PROJECT:
       return Object.assign({}, state, {
         ...state,
         ...payload,
-        isLoading: false
+        isLoading: false,
+        error: null
+      });
+
+    case ERROR_GET_PROJECT:
+      return Object.assign({}, state, {
+        ...state,
+        isLoading: false,
+        error: payload
       });
 
     default:
@@ -46,10 +56,9 @@ export default function reducer(state = initState, action) {
 /**
  * ACTION CREATORS
  **/
-export function getProjectList(payload) {
+export function getProjectList() {
   return {
-    type: REQUSET_GET_PROJECTS,
-    payload
+    type: REQUSET_GET_PROJECTS
   };
 }
 
@@ -58,12 +67,27 @@ export function getProjectList(payload) {
  **/
 
 export const getProjectListSaga = function*(action) {
-  const projectList = yield call(() => getProjects(action.payload));
+  /** if state.projects exist in redux then dont need make request for data */
+  const projects = yield select(state => state.projects.projects);
 
-  yield put({
-    type: GET_PROJECTS,
-    payload: projectList
-  });
+  if (projects.length) {
+    yield put({ type: SUCCESS_GET_PROJECT });
+    return;
+  }
+
+  try {
+    const projectList = yield call(() => getProjects(action.payload));
+
+    yield put({
+      type: SUCCESS_GET_PROJECT,
+      payload: projectList
+    });
+  } catch (e) {
+    yield put({
+      type: ERROR_GET_PROJECT,
+      payload: e
+    });
+  }
 };
 
 export const saga = function*() {

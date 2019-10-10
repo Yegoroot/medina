@@ -23,8 +23,7 @@ export default class Routes extends Component {
         <Route component={UserList} exact path="/users" />
         <Route component={ProjectList} exact path="/projects" />
         <Route component={Typography} exact path="/typography" />
-        <Route component={Account} exact path="/account" />
-        {/* <ProtectRoute component={Account} exact path="/account" /> */}
+        <ProtectRoute component={Account} exact path="/account" />
         <Route component={Settings} exact path="/settings" />
         <Route component={SignUp} exact path="/sign-up" />
         <Route component={SignIn} exact path="/sign-in" />

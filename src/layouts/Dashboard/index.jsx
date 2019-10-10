@@ -17,6 +17,8 @@ import { Sidebar, Topbar, Footer } from "./components";
 // Component styles
 import styles from "./styles";
 
+import { rtl } from "../../theme";
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -57,7 +59,7 @@ class Dashboard extends Component {
           title={title}
         />
         <Drawer
-          anchor="left"
+          anchor={rtl ? "right" : "left"}
           classes={{ paper: classes.drawerPaper }}
           onClose={this.handleClose}
           open={isOpen}

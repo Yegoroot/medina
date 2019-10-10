@@ -1,5 +1,10 @@
 import { appName } from "common/config";
-import { takeEvery, put } from "redux-saga/effects";
+import { takeEvery, put, call } from "redux-saga/effects";
+import {
+  getUsers as getUsersService,
+  getUser as getUserService
+} from "../services/user";
+import uuid from "uuid/v1";
 
 /**
  * CONSTANTS
@@ -7,31 +12,69 @@ import { takeEvery, put } from "redux-saga/effects";
 export const moduleName = "users";
 const prefix = `${appName}/${moduleName}`;
 
-export const SET_USER_REQUSET = `${prefix}/SET_USER_REQUSET`;
-export const SET_USER = `${prefix}/SET_USER`;
+export const REQUEST_ADD_USER = `${prefix}/REQUEST_ADD_USER`;
+export const SUCCESS_ADD_USER = `${prefix}/SUCCESS_ADD_USER`;
+export const REQUEST_GET_USERS = `${prefix}/REQUEST_GET_USERS`;
+export const SUCCESS_GET_USERS = `${prefix}/SUCCESS_GET_USERS`;
+export const REQUEST_GET_USER = `${prefix}/REQUEST_GET_USER`;
+export const SUCCESS_GET_USER = `${prefix}/SUCCESS_GET_USER`;
+export const HANDLE_MODAL = `${prefix}/HANDLE_MODAL`;
 
 /**
  * REDUCER
  **/
 const initState = {
-  isLoading: false,
-  users: []
+  isLoadingGetUsers: false,
+  isLoadingAdd: false,
+  isLoadingGetUser: false,
+  isOpenModalAddUser: false,
+  users: [],
+  user: null,
+  usersTotal: null
 };
 
 export default function reducer(state = initState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case SET_USER_REQUSET:
+    case HANDLE_MODAL:
       return {
         ...state,
-        isLoading: true
+        isOpenModalAddUser: payload
       };
-    case SET_USER:
+    case REQUEST_ADD_USER:
+      return {
+        ...state,
+        isLoadingAdd: true
+      };
+    case SUCCESS_ADD_USER:
       return {
         ...state,
         users: [...state.users, payload],
-        isLoading: false
+        isLoadingAdd: false,
+        isOpenModalAddUser: false
+      };
+    case REQUEST_GET_USER:
+      return {
+        ...state,
+        isLoadingGetUser: true
+      };
+    case SUCCESS_GET_USER:
+      return {
+        ...state,
+        ...payload,
+        isLoadingGetUser: false
+      };
+    case REQUEST_GET_USERS:
+      return {
+        ...state,
+        isLoadingGetUsers: true
+      };
+    case SUCCESS_GET_USERS:
+      return {
+        ...state,
+        ...payload,
+        isLoadingGetUsers: false
       };
 
     default:
@@ -42,9 +85,37 @@ export default function reducer(state = initState, action) {
 /**
  * ACTION CREATORS
  **/
+
+export const handleModalAddUser = payload => ({
+  type: HANDLE_MODAL,
+  payload
+});
+
 export function addUser(payload) {
   return {
-    type: SET_USER_REQUSET,
+    type: REQUEST_ADD_USER,
+    payload
+  };
+}
+
+/**
+ * GET LIST USERS
+ * @param {filter: obj} payload
+ */
+export function getUsers(payload) {
+  return {
+    type: REQUEST_GET_USERS,
+    payload
+  };
+}
+
+/**
+ * GET USER
+ * @param {ID: string} payload
+ */
+export function getUser(payload) {
+  return {
+    type: REQUEST_GET_USER,
     payload
   };
 }
@@ -53,15 +124,49 @@ export function addUser(payload) {
  * SAGAS
  **/
 
-export const addUserSaga = function*(action) {
-  // const projectList = yield call(() => getProjects(action.payload));
+export const getUsersSaga = function*(action) {
+  const usersData = yield call(() => getUsersService(action.payload));
 
   yield put({
-    type: SET_USER,
-    payload: { ...action.payload }
+    type: SUCCESS_GET_USERS,
+    payload: usersData
+  });
+};
+
+export const getUserSaga = function*(action) {
+  const uid = action.payload;
+
+  const userData = yield call(() => getUserService(uid));
+
+  console.log(userData.user);
+
+  yield put({
+    type: SUCCESS_GET_USER,
+    payload: userData
+  });
+};
+
+export const addUserSaga = function*(action) {
+  // const projectList = yield call(() => getProjects(action.payload));
+  /**
+   * ПРИЧЕСЫВАЕМ ДАННЫЕ
+   */
+  let payload = action.payload;
+  payload.id = uuid();
+  payload.address = {
+    country: payload.country,
+    city: payload.city
+  };
+  delete payload.country;
+  delete payload.city;
+  yield put({
+    type: SUCCESS_ADD_USER,
+    payload
   });
 };
 
 export const saga = function*() {
-  yield takeEvery(SET_USER_REQUSET, addUserSaga);
+  yield takeEvery(REQUEST_ADD_USER, addUserSaga);
+  yield takeEvery(REQUEST_GET_USERS, getUsersSaga);
+  yield takeEvery(REQUEST_GET_USER, getUserSaga);
 };

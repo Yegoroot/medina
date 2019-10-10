@@ -11,7 +11,8 @@ export default theme => ({
     })
   },
   topbarShift: {
-    marginLeft: "271px",
+    [theme.rtl ? "margin-right" : "margin-left"]: "271px",
+    // marginRight: "271px" :,
     width: "calc(-271px + 100vw)"
   },
   drawerPaper: {
@@ -31,6 +32,7 @@ export default theme => ({
     })
   },
   contentShift: {
-    marginLeft: "270px"
+    [theme.rtl ? "margin-right" : "margin-left"]: "270px"
+    // marginRight: "270px"
   }
 });
