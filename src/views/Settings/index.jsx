@@ -9,9 +9,6 @@ import { withStyles } from "@material-ui/core";
 // Material components
 import { Grid } from "@material-ui/core";
 
-// Shared layouts
-import { Dashboard as DashboardLayout } from "layouts";
-
 // Custom components
 import { Permissions, Password } from "./components";
 
@@ -27,18 +24,16 @@ class Settings extends Component {
     const { classes } = this.props;
 
     return (
-      <DashboardLayout title="Settings">
-        <div className={classes.root}>
-          <Grid container spacing={4}>
-            <Grid item md={7} xs={12}>
-              <Permissions />
-            </Grid>
-            <Grid item md={5} xs={12}>
-              <Password />
-            </Grid>
+      <div className={classes.root}>
+        <Grid container spacing={4}>
+          <Grid item md={7} xs={12}>
+            <Permissions />
           </Grid>
-        </div>
-      </DashboardLayout>
+          <Grid item md={5} xs={12}>
+            <Password />
+          </Grid>
+        </Grid>
+      </div>
     );
   }
 }

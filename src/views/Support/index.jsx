@@ -9,9 +9,6 @@ import { withStyles } from "@material-ui/core";
 // Material components
 import { Grid, Typography as TypographyComponent } from "@material-ui/core";
 
-// Shared layouts
-import { Dashboard as DashboardLayout } from "layouts";
-
 // Component styles
 const styles = theme => ({
   root: {
@@ -41,26 +38,24 @@ class Typography extends Component {
     const { classes } = this.props;
 
     return (
-      <DashboardLayout title="Typography">
-        <div className={classes.root}>
-          <Grid container spacing={4}>
-            {Object.keys(variants).map((key, i) => (
-              <Fragment key={i}>
-                <Grid item sm={3} xs={12}>
-                  <TypographyComponent variant="caption">
-                    {key}
-                  </TypographyComponent>
-                </Grid>
-                <Grid item sm={9} xs={12}>
-                  <TypographyComponent variant={key}>
-                    {variants[key]}
-                  </TypographyComponent>
-                </Grid>
-              </Fragment>
-            ))}
-          </Grid>
-        </div>
-      </DashboardLayout>
+      <div className={classes.root}>
+        <Grid container spacing={4}>
+          {Object.keys(variants).map((key, i) => (
+            <Fragment key={i}>
+              <Grid item sm={3} xs={12}>
+                <TypographyComponent variant="caption">
+                  {key}
+                </TypographyComponent>
+              </Grid>
+              <Grid item sm={9} xs={12}>
+                <TypographyComponent variant={key}>
+                  {variants[key]}
+                </TypographyComponent>
+              </Grid>
+            </Fragment>
+          ))}
+        </Grid>
+      </div>
     );
   }
 }

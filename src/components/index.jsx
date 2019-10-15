@@ -12,3 +12,4 @@ export { default as ProtectRoute } from "./ProtectRoute";
 export { default as AddUserDialog } from "./AddUserDialog";
 export { default as LaunchScreen } from "./LaunchScreen";
 export { default as Snackbar } from "./Snackbar";
+export { default as RouteWithLayout } from "./RouteWithLayout";

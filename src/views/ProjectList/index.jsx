@@ -24,9 +24,6 @@ import {
   ChevronLeft as ChevronLeftIcon
 } from "@material-ui/icons";
 
-// Shared layouts
-import { Dashboard as DashboardLayout } from "layouts";
-
 // Custom components
 import { ProjectsToolbar, ProjectCard } from "./components";
 
@@ -84,21 +81,19 @@ class ProjectList extends Component {
     const { classes } = this.props;
 
     return (
-      <DashboardLayout title="Projects">
-        <div className={classes.root}>
-          <ProjectsToolbar />
-          <div className={classes.content}>{this.renderProjects()}</div>
-          <div className={classes.pagination}>
-            <Typography variant="caption">1-6 of 20</Typography>
-            <IconButton>
-              <ChevronLeftIcon />
-            </IconButton>
-            <IconButton>
-              <ChevronRightIcon />
-            </IconButton>
-          </div>
+      <div className={classes.root}>
+        <ProjectsToolbar />
+        <div className={classes.content}>{this.renderProjects()}</div>
+        <div className={classes.pagination}>
+          <Typography variant="caption">1-6 of 20</Typography>
+          <IconButton>
+            <ChevronLeftIcon />
+          </IconButton>
+          <IconButton>
+            <ChevronRightIcon />
+          </IconButton>
         </div>
-      </DashboardLayout>
+      </div>
     );
   }
 }
