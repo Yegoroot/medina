@@ -62,7 +62,7 @@ class Sidebar extends Component {
             <Avatar
               alt="Roman Kutepov"
               className={classes.avatar}
-              src="/images/avatars/avatar_1.png"
+              src="/images/avatars/avatar_11.jpg"
             />
           </Link>
           <Typography className={classes.nameText} variant="h6">

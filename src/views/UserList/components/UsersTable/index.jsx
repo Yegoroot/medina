@@ -113,10 +113,13 @@ class UsersTable extends Component {
                     />
                     Name
                   </TableCell>
-                  <TableCell align="left">ID</TableCell>
-                  <TableCell align="left">State</TableCell>
-                  <TableCell align="left">Phone</TableCell>
-                  <TableCell align="left">Registration date</TableCell>
+                  <TableCell>NickName</TableCell>
+                  <TableCell>Interests</TableCell>
+                  <TableCell style={{ minWidth: 170 }}>Phone</TableCell>
+                  <TableCell>Location</TableCell>
+                  <TableCell>Email</TableCell>
+                  <TableCell>Birth date</TableCell>
+                  <TableCell>Registration date</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -166,16 +169,28 @@ class UsersTable extends Component {
                           </Link>
                         </div>
                       </TableCell>
-                      <TableCell className={classes.tableCell}>
-                        {user.id}
+                      <TableCell>{user.nickname}</TableCell>
+                      <TableCell>
+                        {typeof user.interests === "object"
+                          ? user.interests.map(item => (
+                              <span key={item} className={classes.interests}>
+                                {item}
+                                {"; "}
+                              </span>
+                            ))
+                          : user.interests}
                       </TableCell>
-                      <TableCell className={classes.tableCell}>
-                        {user.address.state}
-                      </TableCell>
-                      <TableCell className={classes.tableCell}>
+                      <TableCell className={classes.phone}>
                         {user.phone}
                       </TableCell>
-                      <TableCell className={classes.tableCell}>
+                      <TableCell>
+                        {user.address.city}, {user.address.country}
+                      </TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>
+                        {moment(user.dateBirth).format("DD/MM/YYYY")}
+                      </TableCell>
+                      <TableCell>
                         {moment(user.createdAt).format("DD/MM/YYYY")}
                       </TableCell>
                     </TableRow>

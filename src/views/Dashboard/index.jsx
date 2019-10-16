@@ -16,7 +16,8 @@ import {
   Progress,
   Profit,
   ProjectList,
-  OrdersTable
+  // OrdersTable
+  LatestStudents
 } from "./components";
 
 // Component styles
@@ -52,7 +53,7 @@ class Dashboard extends Component {
             <ProjectList className={classes.item} />
           </Grid>
           <Grid item lg={8} md={12} xl={9} xs={12}>
-            <OrdersTable className={classes.item} />
+            <LatestStudents className={classes.item} />
           </Grid>
         </Grid>
       </div>

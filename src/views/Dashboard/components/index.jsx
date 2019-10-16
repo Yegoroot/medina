@@ -4,3 +4,4 @@ export { default as ProjectList } from "./ProjectList";
 export { default as Profit } from "./Profit";
 export { default as Progress } from "./Progress";
 export { default as Users } from "./Users";
+export { default as LatestStudents } from "./LatestStudents";
