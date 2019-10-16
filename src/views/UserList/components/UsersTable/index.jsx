@@ -156,7 +156,7 @@ class UsersTable extends Component {
                           >
                             {getInitials(user.name)}
                           </Avatar>
-                          <Link to="#">
+                          <Link to={`/users/${user.id}`}>
                             <Typography
                               className={classes.nameText}
                               variant="body1"
