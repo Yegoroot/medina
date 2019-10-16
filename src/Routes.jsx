@@ -36,6 +36,7 @@ export default class Routes extends Component {
           exact
           layout={MainLayout}
           path="/users"
+          title="Users"
         />
 
         <RouteWithLayout
@@ -43,18 +44,21 @@ export default class Routes extends Component {
           exact
           layout={MainLayout}
           path="/projects"
+          title="Projects"
         />
         <RouteWithLayout
           component={Typography}
           exact
           layout={MainLayout}
           path="/typography"
+          title="Typography"
         />
         <RouteWithLayout
           component={Account}
           exact
           layout={MainLayout}
           path="/account"
+          title="Account"
         />
 
         {/* <ProtectRoute component={Account} exact path="/account" /> */}
@@ -63,12 +67,14 @@ export default class Routes extends Component {
           exact
           layout={MainLayout}
           path="/settings"
+          title="Settings"
         />
         <RouteWithLayout
           component={UnderDevelopment}
           exact
           layout={MinimalLayout}
           path="/under-development"
+          title="Under-Development"
         />
         {/* <Route component={UnderDevelopment} exact path="/under-development" /> */}
 

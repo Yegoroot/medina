@@ -9,7 +9,8 @@ export default theme => ({
   },
   toolbar: {
     minHeight: "auto",
-    width: "100%"
+    width: "100%",
+    flexDirection: theme.rtl ? "row-reverse" : "row"
   },
   title: {
     marginLeft: theme.spacing()
@@ -18,7 +19,7 @@ export default theme => ({
     marginLeft: "-4px"
   },
   notificationsButton: {
-    marginLeft: "auto"
+    [theme.rtl ? "margin-right" : "margin-left"]: "auto"
   },
   signOutButton: {
     marginLeft: theme.spacing()

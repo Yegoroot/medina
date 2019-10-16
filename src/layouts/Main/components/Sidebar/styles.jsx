@@ -42,17 +42,24 @@ export default theme => ({
     marginTop: theme.spacing(2)
   },
   listSubheader: {
+    textAlign: theme.rtl ? "right" : "left",
     color: theme.palette.text.secondary
   },
   listItem: {
+    textAlign: theme.rtl ? "right" : "left",
+    flexDirection: theme.rtl ? "row-reverse" : "row",
     cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.primary.light,
-      borderLeft: `4px solid ${theme.palette.primary.main}`,
+      [theme.rtl
+        ? "border-right"
+        : "border-left"]: `4px solid ${theme.palette.primary.main}`,
+      // borderLeft: `4px solid ${theme.palette.primary.main}`,
       borderRadius: "4px",
       "& $listItemIcon": {
         color: theme.palette.primary.main,
-        marginLeft: "-4px"
+        [theme.rtl ? "margin-right" : "margin-left"]: "-4px"
+        // marginLeft: "-4px"
       }
     },
     "& + &": {
@@ -60,7 +67,10 @@ export default theme => ({
     }
   },
   activeListItem: {
-    borderLeft: `4px solid ${theme.palette.primary.main}`,
+    [theme.rtl
+      ? "border-right"
+      : "border-left"]: `4px solid ${theme.palette.primary.main}`,
+    // borderLeft: `4px solid ${theme.palette.primary.main}`,
     borderRadius: "4px",
     backgroundColor: theme.palette.primary.light,
     "& $listItemText": {
@@ -68,13 +78,17 @@ export default theme => ({
     },
     "& $listItemIcon": {
       color: theme.palette.primary.main,
-      marginLeft: "-4px"
+      [theme.rtl ? "margin-right" : "margin-left"]: `-4px`
+      // marginLeft: "-4px"
     }
   },
   listItemIcon: {
-    marginRight: 0
+    [theme.rtl ? "margin-left" : "margin-right"]: 0,
+    // marginRight: 0,
+    minWidth: theme.rtl ? "inherit" : 50
   },
   listItemText: {
+    paddingRight: theme.rtl ? 15 : "initial",
     fontWeight: 500,
     color: theme.palette.text.secondary
   },

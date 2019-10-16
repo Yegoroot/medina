@@ -40,8 +40,6 @@ const Dashboard = props => {
   const shiftTopbar = isOpen && !isMobile;
   const shiftContent = isOpen && !isMobile;
 
-  console.log(props);
-
   return (
     <>
       <Topbar
