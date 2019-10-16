@@ -28,7 +28,8 @@ export default theme => ({
   },
   quoteText: {
     color: theme.palette.white,
-    fontWeight: 300
+    fontWeight: 300,
+    padding: 20
   },
   name: {
     marginTop: theme.spacing(3),

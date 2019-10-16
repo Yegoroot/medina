@@ -35,7 +35,6 @@ class UserList extends Component {
 
   renderUsers() {
     const { classes } = this.props;
-    console.log(this.props);
     const {
       isLoadingGetUsers,
       users
@@ -61,7 +60,7 @@ class UserList extends Component {
     return (
       <UsersTable
         //
-        getUser={(id) => this.props.getUser(id)}
+        getUser={id => this.props.getUser(id)}
         onSelect={this.handleSelect}
         users={users}
       />
