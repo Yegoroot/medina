@@ -19,6 +19,7 @@ import {
 // Shared components
 import { Paper } from "components";
 
+import { Link } from "react-router-dom";
 // Component styles
 import styles from "./styles";
 
@@ -34,8 +35,8 @@ class ProjectCard extends Component {
           <img alt="Project" className={classes.image} src={project.imageUrl} />
         </div>
         <div className={classes.details}>
-          <Typography className={classes.title} variant="h4">
-            {project.title}
+          <Typography color="primary" align="center" gutterBottom variant="h4">
+            <Link to={`/projects/${project.id}`}>{project.title}</Link>
           </Typography>
           <Typography className={classes.description} variant="body1">
             {project.description}

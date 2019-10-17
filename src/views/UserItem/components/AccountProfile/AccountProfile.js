@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import clsx from 'clsx';
-import moment from 'moment';
-import { makeStyles } from '@material-ui/styles';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import moment from "moment";
+import { makeStyles } from "@material-ui/styles";
 import {
   Card,
   CardActions,
@@ -12,17 +12,17 @@ import {
   Divider,
   Button,
   LinearProgress
-} from '@material-ui/core';
-import { connect } from 'react-redux';
-import { getUser } from 'ducks/users';
+} from "@material-ui/core";
+import { connect } from "react-redux";
+import { getUser } from "ducks/users";
 
 const useStyles = makeStyles(theme => ({
   root: {},
   details: {
-    display: 'flex'
+    display: "flex"
   },
   avatar: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
     height: 110,
     width: 100,
     flexShrink: 0,
@@ -58,14 +58,16 @@ const AccountProfile = props => {
             <Typography
               className={classes.locationText}
               color="textSecondary"
-              variant="body1">
+              variant="body1"
+            >
               {user.city}, {user.country}
             </Typography>
             <Typography
               className={classes.dateText}
               color="textSecondary"
-              variant="body1">
-              {moment().format('hh:mm A')} ({user.timezone})
+              variant="body1"
+            >
+              {moment().format("hh:mm A")} ({user.timezone})
             </Typography>
           </div>
           <Avatar className={classes.avatar} src={user.avatar} />
@@ -87,7 +89,8 @@ const AccountProfile = props => {
 };
 
 AccountProfile.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
+  getUser: PropTypes.func
 };
 
 export default connect(

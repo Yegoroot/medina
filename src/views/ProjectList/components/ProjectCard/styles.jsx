@@ -9,7 +9,7 @@ export default theme => ({
   imageWrapper: {
     height: "64px",
     width: "64px",
-    margin: "0 auto",
+    margin: "0 auto 20px",
     border: "1px solid #EDF0F2",
     borderRadius: "5px",
     overflow: "hidden",

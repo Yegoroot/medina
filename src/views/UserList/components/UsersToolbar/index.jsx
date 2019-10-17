@@ -25,24 +25,19 @@ import styles from "./styles";
 
 import { AddUserDialog } from "components";
 
+import { connect } from "react-redux";
+import { handleModalAddUser } from "ducks/users";
+
 class UsersToolbar extends Component {
-  state = {
-    open: false // modal
-  };
-
-  handlerOpen = () => {
-    this.setState({ open: true });
-  };
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
   render() {
-    const { classes, className, selectedUsers } = this.props;
+    const {
+      classes,
+      className,
+      selectedUsers,
+      handleModalAddUser
+    } = this.props;
 
     const rootClassName = classNames(classes.root, className);
-
-    let { open } = this.state;
 
     return (
       <div className={rootClassName}>
@@ -75,7 +70,7 @@ class UsersToolbar extends Component {
             color="primary"
             size="small"
             variant="outlined"
-            onClick={() => this.handlerOpen()}
+            onClick={() => handleModalAddUser(true)}
           >
             Add
           </Button>
@@ -89,7 +84,7 @@ class UsersToolbar extends Component {
           <DisplayMode mode="list" />
         </div>
 
-        <AddUserDialog open={open} handleClose={this.handleClose} />
+        <AddUserDialog />
       </div>
     );
   }
@@ -105,4 +100,8 @@ UsersToolbar.defaultProps = {
   selectedUsers: []
 };
 
-export default withStyles(styles)(UsersToolbar);
+// export default withStyles(styles)(UsersToolbar);
+export default connect(
+  null,
+  { handleModalAddUser }
+)(withStyles(styles)(UsersToolbar));

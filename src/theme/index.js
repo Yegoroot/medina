@@ -5,7 +5,7 @@ import palette from "./palette";
 import typography from "./typography";
 import overrides from "./overrides";
 
-export const rtl = true;
+export const rtl = false;
 
 const theme = createMuiTheme({
   palette,

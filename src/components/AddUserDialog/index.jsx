@@ -1,23 +1,33 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import PropTypes from "prop-types";
+
+import {
+  Button,
+  TextField,
+  Dialog,
+  Grid,
+  DialogTitle,
+  DialogContentText,
+  DialogContent,
+  DialogActions
+} from "@material-ui/core";
+// import PropTypes from 'prop-types';
 
 // redux
 import { connect } from "react-redux";
-import { addUser, moduleName } from "ducks/users";
+import { addUser, moduleName, handleModalAddUser } from "ducks/users";
 
 class FormDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      email: ""
+      email: "",
+      nickname: "",
+      interests: "",
+      phone: "",
+      country: "",
+      city: "",
+      dateBirth: ""
     };
   }
 
@@ -28,18 +38,27 @@ class FormDialog extends React.Component {
   }
 
   onAdded() {
-    const { addUser } = this.props;
-    console.log(this.state);
-    addUser(this.state);
+    this.props.addUser(this.state);
   }
 
   render() {
-    let { open, handleClose } = this.props;
-    let { name, email } = this.state;
+    const { users, handleModalAddUser } = this.props;
+    let {
+      name,
+      email,
+      nickname,
+      interests,
+      phone,
+      country,
+      city,
+      dateBirth
+    } = this.state;
     return (
       <Dialog
-        open={open}
-        onClose={() => handleClose()}
+        fullWidth={true}
+        maxWidth={false}
+        open={users.isOpenModalAddUser}
+        onClose={() => handleModalAddUser(false)}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">Added New User</DialogTitle>
@@ -48,28 +67,100 @@ class FormDialog extends React.Component {
             To subscribe to this website, please enter your email address here.
             We will send updates occasionally.
           </DialogContentText>
-          <TextField
-            autoFocus
-            onChange={e => this.onChange("name", e.target.value)}
-            value={name}
-            margin="dense"
-            id="name"
-            label="Name "
-            type="name"
-            fullWidth
-          />
-          <TextField
-            onChange={e => this.onChange("email", e.target.value)}
-            value={email}
-            margin="dense"
-            id="email"
-            label="Email Address"
-            type="email"
-            fullWidth
-          />
+          <Grid container>
+            <Grid md={6} lg={3} item>
+              <TextField
+                autoFocus
+                onChange={e => this.onChange("name", e.target.value)}
+                value={name}
+                id="name"
+                label="Name"
+                type="name"
+                margin="dense"
+                fullWidth
+              />
+            </Grid>
+            <Grid md={6} lg={3} item>
+              <TextField
+                onChange={e => this.onChange("nickname", e.target.value)}
+                value={nickname}
+                id="nickname"
+                label="NickName"
+                margin="dense"
+                type="text"
+                fullWidth
+              />
+            </Grid>
+            <Grid md={6} lg={3} item>
+              <TextField
+                onChange={e => this.onChange("interests", e.target.value)}
+                value={interests}
+                id="interests"
+                label="Interests"
+                type="text"
+                margin="dense"
+                fullWidth
+              />
+            </Grid>
+            <Grid md={6} lg={3} item>
+              <TextField
+                onChange={e => this.onChange("phone", e.target.value)}
+                value={phone}
+                margin="dense"
+                id="phone"
+                label="Phone"
+                type="phone"
+                fullWidth
+              />
+            </Grid>
+            <Grid md={6} lg={3} item>
+              <TextField
+                onChange={e => this.onChange("country", e.target.value)}
+                value={country}
+                margin="dense"
+                id="country"
+                label="Country"
+                type="country"
+                fullWidth
+              />
+            </Grid>
+            <Grid md={6} lg={3} item>
+              <TextField
+                onChange={e => this.onChange("city", e.target.value)}
+                value={city}
+                margin="dense"
+                id="city"
+                label="City"
+                type="city"
+                fullWidth
+              />
+            </Grid>
+            <Grid md={6} lg={3} item>
+              <TextField
+                onChange={e => this.onChange("email", e.target.value)}
+                value={email}
+                margin="dense"
+                id="email"
+                label="Email Address"
+                type="email"
+                fullWidth
+              />
+            </Grid>
+            <Grid md={6} lg={3} item>
+              <TextField
+                onChange={e => this.onChange("dateBirth", e.target.value)}
+                value={dateBirth}
+                margin="dense"
+                id="dateBirth"
+                label="Date Birth"
+                type="dateBirth"
+                fullWidth
+              />
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => handleClose()} color="primary">
+          <Button onClick={() => handleModalAddUser(false)} color="primary">
             Cancel
           </Button>
           <Button onClick={() => this.onAdded()} color="primary">
@@ -82,13 +173,13 @@ class FormDialog extends React.Component {
 }
 
 FormDialog.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired
+  // open: PropTypes.bool.isRequired,
+  // handleClose: PropTypes.func.isRequired
 };
 
 export default connect(
   state => ({
     users: state[moduleName]
   }),
-  { addUser }
+  { addUser, handleModalAddUser }
 )(FormDialog);

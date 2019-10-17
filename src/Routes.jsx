@@ -6,6 +6,7 @@ import { RouteWithLayout } from "./components";
 // Views
 import Dashboard from "./views/Dashboard";
 import ProjectList from "./views/ProjectList";
+import ProjectItem from "./views/ProjectItem";
 import UserList from "./views/UserList";
 import UserItem from "./views/UserItem";
 import Typography from "./views/Typography";
@@ -53,6 +54,12 @@ export default class Routes extends Component {
           layout={MainLayout}
           path="/projects"
           title="Projects"
+        />
+        <RouteWithLayout
+          component={ProjectItem}
+          exact
+          layout={MainLayout}
+          path="/projects/:id"
         />
         <RouteWithLayout
           component={Typography}
