@@ -1,6 +1,7 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/styles';
-import { Grid } from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/styles";
+import { Grid } from "@material-ui/core";
+import { ButtonBack } from "components";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,6 +14,7 @@ const ProjectItem = props => {
 
   return (
     <div className={classes.root}>
+      <ButtonBack />
       <h1>{props.match.params.id}</h1>
 
       <Grid container spacing={4}>

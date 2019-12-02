@@ -138,8 +138,6 @@ export const getUserSaga = function*(action) {
 
   const userData = yield call(() => getUserService(uid));
 
-  console.log(userData.user);
-
   yield put({
     type: SUCCESS_GET_USER,
     payload: userData

@@ -14,3 +14,4 @@ export { default as LaunchScreen } from "./LaunchScreen";
 export { default as Snackbar } from "./Snackbar";
 export { default as RouteWithLayout } from "./RouteWithLayout";
 export { default as StatusBullet } from "./StatusBullet";
+export { default as ButtonBack } from "./ButtonBack";

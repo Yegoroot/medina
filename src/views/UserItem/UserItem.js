@@ -1,9 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, IconButton } from "@material-ui/core";
-import { ArrowForward as ArrowNextIcon } from "@material-ui/icons";
-
+import { Grid } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { AccountProfile, AccountDetails } from "./components";
+import { ButtonBack } from "components";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,25 +18,20 @@ const Account = props => {
 
   return (
     <div className={classes.root}>
-      <div
-        // className={classes.contentHeader}
-        onClick={() => props.history.goBack()}
-        style={{
-          flexDirection: "row-reverse",
-          display: "flex",
-          paddingBottom: 10
-        }}
-      >
-        <IconButton className={classes.backButton}>
-          <ArrowNextIcon />
-        </IconButton>
-      </div>
+      <ButtonBack />
+
       <Grid container spacing={4}>
         <Grid item lg={4} md={6} xl={4} xs={12}>
           <AccountProfile uid={uid} />
         </Grid>
         <Grid item lg={8} md={6} xl={8} xs={12}>
           <AccountDetails uid={uid} />
+        </Grid>
+        <Grid item lg={4} md={6} xl={3} xs={12}>
+          <Link to={`/users/${uid}/articles`}> This articles's blog </Link>
+        </Grid>
+        <Grid item lg={8} md={12} xl={9} xs={12}>
+          {/* ---------------- */}
         </Grid>
       </Grid>
     </div>
