@@ -1,0 +1,215 @@
+{
+  "users": [
+    {
+      "id": "1001",
+      "uniqLink": "001",
+      "name": "Ubayda",
+      "nickname": "Issa Kievsciy",
+      "address": { "country": "Ukraine", "city": "Kiev" },
+      "email": "issa.kiev@gmail.com",
+      "phone": "+9 888 808 00 88",
+      "avatarUrl": "/images/avatars/avatar_11.jpg",
+      "createdAt": 1555016400000,
+      "dateBirth": 1555016400001,
+      "interests": [
+        "football",
+        "struggle",
+        "english",
+        "kudo",
+        "shooting",
+        "running",
+        "programming",
+        "driving"
+      ]
+    },
+    {
+      "id": "1002",
+      "name": "Muhammad",
+      "uniqLink": "002",
+      "avatarUrl": "/images/avatars/avatar_11.jpg",
+      "nickname": "Mekkanskiy",
+      "interests": ["shooting", "running", "driving"],
+      "phone": "+7 906 006 06 06",
+      "address": { "country": "Ingushetiya", "city": "Nalchik" },
+      "email": "muhammad.ing@gmail.com",
+      "dateBirth": 1555016400001,
+      "createdAt": 1555016400000
+    },
+    {
+      "id": "1003",
+      "name": "Abdula",
+      "nickname": "Dag_05",
+      "uniqLink": "hi",
+      "address": { "country": "Dagestan", "city": "Mahachkala" },
+      "email": "dag05@gmail.com",
+      "phone": "+7 905 005 05 05",
+      "avatarUrl": "/images/avatars/avatar_11.jpg",
+      "createdAt": 1555016400000,
+      "dateBirth": 1555016400001,
+      "interests": ["kudo", "shooting", "running"]
+    },
+    {
+      "id": "1004",
+      "name": "Kirill",
+      "nickname": "HiddenName",
+      "uniqLink": "hello",
+      "address": { "country": "Russia", "city": "Moscow" },
+      "email": "kirill.abdu.ubayda@gmail.com",
+      "phone": "+7 977 007 07 07",
+      "avatarUrl": "/images/avatars/avatar_11.jpg",
+      "createdAt": 1555016400000,
+      "dateBirth": 1555016400001,
+      "interests": ["футбол", "борьба", "английский"]
+    }
+  ],
+  "projects": [
+    {
+      "id": "DEV738089",
+      "title": "React",
+      "description": "Создание редактора для арабских символов",
+      "imageUrl": "/images/projects/project_1.png",
+      "totalDownloads": "594",
+      "price": "10",
+      "status": "published",
+      "createdAt": "27/03/2019"
+    },
+    {
+      "id": "DEV795381",
+      "title": "Medina Proj",
+      "description": "Создание проекта Medina",
+      "imageUrl": "/images/projects/project_2.png",
+      "totalDownloads": "625",
+      "price": "27",
+      "status": "published",
+      "createdAt": "31/03/2019"
+    },
+    {
+      "id": "DEV774585",
+      "title": "Slack",
+      "description": "Slack is a cloud-based set of team collaboration tools and services, founded by Stewart Butterfield.",
+      "imageUrl": "/images/projects/project_3.png",
+      "totalDownloads": "857",
+      "price": "20",
+      "status": "published",
+      "createdAt": "03/04/2019"
+    },
+    {
+      "id": "DEV654476",
+      "title": "Lyft",
+      "description": "Lyft is an on-demand transportation company based in San Francisco, California.",
+      "imageUrl": "/images/projects/project_4.png",
+      "totalDownloads": "406",
+      "price": "28",
+      "status": "draft",
+      "createdAt": "04/04/2019"
+    },
+    {
+      "id": "DEV958347",
+      "title": "GitHub",
+      "description": "GitHub is a web-based hosting service for version control of code using Git.",
+      "imageUrl": "/images/projects/project_5.png",
+      "totalDownloads": "835",
+      "price": "32",
+      "status": "published",
+      "createdAt": "04/04/2019"
+    },
+    {
+      "id": "DEV773559",
+      "title": "Squarespace",
+      "description": "Squarespace provides software as a service for website building and hosting. Headquartered in NYC.",
+      "imageUrl": "/images/projects/project_6.png",
+      "totalDownloads": "835",
+      "price": "32",
+      "status": "published",
+      "createdAt": "04/04/2019"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "DEV716627",
+      "title": "New order has been received",
+      "when": "2 hours ago",
+      "type": "order",
+      "to": "/orders/DEV730658"
+    },
+    {
+      "id": "DEV853890",
+      "title": "New customer is registered",
+      "when": "3 hours ago",
+      "type": "user",
+      "to": "/users/DEV696649"
+    },
+    {
+      "id": "DEV897704",
+      "title": "Project has been approved",
+      "when": "1 day ago",
+      "type": "project",
+      "to": "/projects/DEV654476"
+    },
+    {
+      "id": "DEV604714",
+      "title": "New feature has been added",
+      "when": "2 day ago",
+      "type": "feature",
+      "to": "/features"
+    }
+  ],
+  "orders": [
+    {
+      "id": "DEV730658",
+      "amount": 30.5,
+      "customer": "DEV705225",
+      "projects": ["DEV738089"],
+      "createdAt": 1555016400000,
+      "status": "pending"
+    },
+    {
+      "id": "DEV898812",
+      "amount": 25.1,
+      "customer": "DEV696649",
+      "projects": ["DEV774585"],
+      "createdAt": 1555016400000,
+      "status": "delivered"
+    },
+    {
+      "id": "DEV793788",
+      "amount": 10.99,
+      "customer": "DEV702967",
+      "projects": ["DEV654476"],
+      "createdAt": 1554930000000,
+      "status": "refund"
+    },
+    {
+      "id": "DEV841788",
+      "amount": 96.43,
+      "customer": "DEV663348",
+      "projects": ["DEV654476", "DEV773559"],
+      "createdAt": 1554757200000,
+      "status": "pending"
+    },
+    {
+      "id": "DEV552540",
+      "amount": 32.54,
+      "customer": "DEV728981",
+      "projects": ["DEV738089"],
+      "createdAt": 1554670800000,
+      "status": "delivered"
+    },
+    {
+      "id": "DEV783653",
+      "amount": 34.2,
+      "customer": "DEV883167",
+      "projects": ["DEV773559"],
+      "createdAt": 1554325200000,
+      "status": "delivered"
+    },
+    {
+      "id": "DEV593146",
+      "amount": 43.75,
+      "customer": "DEV883167",
+      "projects": ["DEV795381"],
+      "createdAt": 1554325200000,
+      "status": "refund"
+    }
+  ]
+}
