@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { Component } from 'react'
+import { Link, NavLink } from 'react-router-dom'
 
 // Externals
-import classNames from "classnames";
-import PropTypes from "prop-types";
+import classNames from 'classnames'
+import PropTypes from 'prop-types'
 
 // Material helpers
-import { withStyles } from "@material-ui/core";
+import { withStyles } from '@material-ui/core'
 
 // Material components
 import {
@@ -17,32 +17,32 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
-  Typography
-} from "@material-ui/core";
+  Typography,
+} from '@material-ui/core'
 
 // Material icons
 import {
   DashboardOutlined as DashboardIcon,
-  PeopleOutlined as PeopleIcon,
-  ShoppingBasketOutlined as ShoppingBasketIcon,
+  // PeopleOutlined as PeopleIcon,
+  // ShoppingBasketOutlined as ShoppingBasketIcon,
   InfoOutlined as InfoIcon,
   AccountBoxOutlined as AccountBoxIcon,
-  SettingsOutlined as SettingsIcon
-} from "@material-ui/icons";
+  SettingsOutlined as SettingsIcon,
+} from '@material-ui/icons'
 
-import styles from "./styles";
+import styles from './styles'
 
 /*eslint-disable */
 const AdapterLink = React.forwardRef((props, ref) => (
   <NavLink innerRef={ref} {...props} />
-));
+))
 /*eslint-enable */
 
 class Sidebar extends Component {
   render() {
-    const { classes, className } = this.props;
+    const { classes, className } = this.props
 
-    const rootClassName = classNames(classes.root, className);
+    const rootClassName = classNames(classes.root, className)
 
     return (
       <nav className={rootClassName}>
@@ -78,17 +78,17 @@ class Sidebar extends Component {
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={AdapterLink}
-            to="/dashboard"
+            to="/grammar"
           >
             <ListItemIcon className={classes.listItemIcon}>
               <DashboardIcon />
             </ListItemIcon>
             <ListItemText
               classes={{ primary: classes.listItemText }}
-              primary="Dashboard"
+              primary="Grammar"
             />
           </ListItem>
-          <ListItem
+          {/* <ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
             component={AdapterLink}
@@ -109,13 +109,13 @@ class Sidebar extends Component {
             to="/projects"
           >
             <ListItemIcon className={classes.listItemIcon}>
-              <ShoppingBasketIcon />
+              <DashboardIcon />
             </ListItemIcon>
             <ListItemText
               classes={{ primary: classes.listItemText }}
               primary="Projects"
             />
-          </ListItem>
+          </ListItem> */}
           <ListItem
             activeClassName={classes.activeListItem}
             className={classes.listItem}
@@ -171,13 +171,13 @@ class Sidebar extends Component {
           </ListItem>
         </List>
       </nav>
-    );
+    )
   }
 }
 
 Sidebar.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired
-};
+  classes: PropTypes.object.isRequired,
+}
 
-export default withStyles(styles)(Sidebar);
+export default withStyles(styles)(Sidebar)

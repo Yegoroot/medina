@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import clsx from "clsx";
-import moment from "moment";
-import { makeStyles } from "@material-ui/styles";
+import React, { useEffect } from 'react'
+import PropTypes from 'prop-types'
+import clsx from 'clsx'
+import moment from 'moment'
+import { makeStyles } from '@material-ui/styles'
 import {
   Card,
   CardActions,
@@ -11,39 +11,39 @@ import {
   Typography,
   Divider,
   Button,
-  LinearProgress
-} from "@material-ui/core";
-import { connect } from "react-redux";
-import { getUser } from "ducks/users";
+  LinearProgress,
+} from '@material-ui/core'
+import { connect } from 'react-redux'
+import { getUser } from 'ducks/users'
 
 const useStyles = makeStyles(theme => ({
   root: {},
   details: {
-    display: "flex"
+    display: 'flex',
   },
   avatar: {
-    marginLeft: "auto",
+    marginLeft: 'auto',
     height: 110,
     width: 100,
     flexShrink: 0,
-    flexGrow: 0
+    flexGrow: 0,
   },
   progress: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(2),
   },
   uploadButton: {
-    marginRight: theme.spacing(2)
-  }
-}));
+    marginRight: theme.spacing(2),
+  },
+}))
 
 const AccountProfile = props => {
-  const { className, uid, user, getUser, ...rest } = props;
+  const { className, uid, user, getUser, ...rest } = props
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   useEffect(() => {
-    getUser(uid);
-  }, []);
+    getUser(uid)
+  }, [getUser, uid])
 
   return !user ? (
     <LinearProgress />
@@ -67,7 +67,7 @@ const AccountProfile = props => {
               color="textSecondary"
               variant="body1"
             >
-              {moment().format("hh:mm A")} ({user.timezone})
+              {moment().format('hh:mm A')} ({user.timezone})
             </Typography>
           </div>
           <Avatar className={classes.avatar} src={user.avatar} />
@@ -85,17 +85,17 @@ const AccountProfile = props => {
         {/* <Button variant="text">Remove picture</Button> */}
       </CardActions>
     </Card>
-  );
-};
+  )
+}
 
 AccountProfile.propTypes = {
   className: PropTypes.string,
-  getUser: PropTypes.func
-};
+  getUser: PropTypes.func,
+}
 
 export default connect(
   state => ({
-    user: state.users.user
+    user: state.users.user,
   }),
   { getUser }
-)(AccountProfile);
+)(AccountProfile)

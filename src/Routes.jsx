@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { RouteWithLayout } from './components'
 
 // Views
-import Dashboard from './views/Dashboard'
+import Grammar from './views/Grammar'
 import ProjectList from './views/ProjectList'
 import ProjectItem from './views/ProjectItem'
 import UserList from './views/UserList'
@@ -26,13 +26,14 @@ export default class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Redirect exact from="/" to="/dashboard" />
+        <Redirect exact from="/" to="/grammar" />
+
         <RouteWithLayout
-          component={Dashboard}
+          component={Grammar}
           exact
           layout={MainLayout}
-          path="/dashboard"
-          title="Dashboard"
+          path="/grammar"
+          title="Grammar"
         />
         <RouteWithLayout
           component={UserList}
@@ -55,7 +56,6 @@ export default class Routes extends Component {
           path="/users/:id/articles"
           // title="Users"
         />
-
         <RouteWithLayout
           component={ProjectList}
           exact
@@ -83,7 +83,6 @@ export default class Routes extends Component {
           path="/account"
           title="Account"
         />
-
         {/* <ProtectRoute component={Account} exact path="/account" /> */}
         <RouteWithLayout
           component={Settings}
@@ -100,10 +99,8 @@ export default class Routes extends Component {
           title="Under-Development"
         />
         {/* <Route component={UnderDevelopment} exact path="/under-development" /> */}
-
         <Route component={SignUp} exact path="/sign-up" />
         <Route component={SignIn} exact path="/sign-in" />
-
         <Route component={NotFound} exact path="/not-found" />
         <Redirect to="/not-found" />
       </Switch>
