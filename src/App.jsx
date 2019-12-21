@@ -1,27 +1,35 @@
-import React, { Component } from "react";
-import { Provider } from "react-redux";
-import { ConnectedRouter } from "connected-react-router";
+import React from 'react'
 
-import store from "./redux";
-import history from "./common/history";
+/** history */
+import { ConnectedRouter } from 'connected-react-router'
+import history from './common/history'
 
-import "react-perfect-scrollbar/dist/css/styles.css"; // Styles
-import "./assets/scss/index.scss"; // Styles
+/** some styles */
+import 'react-perfect-scrollbar/dist/css/styles.css' // Styles
+import './assets/scss/index.scss' // Styles
 
-import Routes from "./Routes"; // Routes
+/** routes  */
+import Routes from './Routes' // Routes
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <ConnectedRouter history={history}>
-          <>
-            <Routes />
-          </>
-        </ConnectedRouter>
-      </Provider>
-    );
-  }
+/** localisation */
+import { IntlProvider } from 'react-intl'
+import messages from './languages/messages'
+
+// get date from redux
+import { connect } from 'react-redux'
+
+const App = ({ locale }) => {
+  return (
+    <ConnectedRouter history={history}>
+      <IntlProvider locale={locale} messages={messages[locale]}>
+        <>
+          <Routes />
+        </>
+      </IntlProvider>
+    </ConnectedRouter>
+  )
 }
 
-export default App;
+export default connect(state => ({
+  locale: state.intl.locale,
+}))(App)

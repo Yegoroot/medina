@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 // Externals
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import PropTypes from 'prop-types'
+import classNames from 'classnames'
 
 // Material helpers
-import { withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core'
 
 // Material components
-import { Button, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core'
 
 // Shared components
 import {
@@ -16,44 +16,60 @@ import {
   PortletHeader,
   PortletLabel,
   PortletContent,
-  PortletFooter
-} from 'components';
+  PortletFooter,
+} from 'components'
+
+// localisation
+import { FormattedMessage } from 'react-intl'
 
 // Component styles
-import styles from './styles';
-
+import styles from './styles'
+import { changeLocale } from 'ducks/intl'
+import { connect } from 'react-redux'
 class Password extends Component {
   state = {
     values: {
       password: '',
-      confirm: ''
-    }
-  };
+      confirm: '',
+    },
+  }
 
   handleFieldChange = (field, value) => {
-    const newState = { ...this.state };
+    const newState = { ...this.state }
 
-    newState.values[field] = value;
+    newState.values[field] = value
 
-    this.setState(newState, this.validateForm);
-  };
+    this.setState(newState, this.validateForm)
+  }
 
   render() {
-    const { classes, className, ...rest } = this.props;
-    const { values } = this.state;
+    const { classes, className, changeLocale, ...rest } = this.props
+    const { values } = this.state
 
-    const rootClassName = classNames(classes.root, className);
+    const rootClassName = classNames(classes.root, className)
+
+    // const handleChangeLocale = locale => changeLocale(locale)
+
+    const ButtonChooseLanguage = locale => {
+      return (
+        <Button
+          onClick={() => changeLocale(locale)}
+          color="primary"
+          variant="outlined"
+        >
+          <FormattedMessage
+            id="SettingsComponent.buttonChangeLanguage"
+            defaultMessage={'change language'}
+          />{' '}
+          {locale}
+        </Button>
+      )
+    }
 
     return (
-      <Portlet
-        {...rest}
-        className={rootClassName}
-      >
+      <Portlet {...rest} className={rootClassName}>
         <PortletHeader>
-          <PortletLabel
-            subtitle="Update password"
-            title="Password"
-          />
+          <PortletLabel subtitle="Update password" title="Password" />
         </PortletHeader>
         <PortletContent>
           <form className={classes.form}>
@@ -82,21 +98,18 @@ class Password extends Component {
           </form>
         </PortletContent>
         <PortletFooter className={classes.portletFooter}>
-          <Button
-            color="primary"
-            variant="outlined"
-          >
-            Update
-          </Button>
+          {['ar', 'ru', 'en'].map(locale => {
+            return ButtonChooseLanguage(locale)
+          })}
         </PortletFooter>
       </Portlet>
-    );
+    )
   }
 }
 
 Password.propTypes = {
   className: PropTypes.string,
-  classes: PropTypes.object.isRequired
-};
+  classes: PropTypes.object.isRequired,
+}
 
-export default withStyles(styles)(Password);
+export default connect(null, { changeLocale })(withStyles(styles)(Password))
