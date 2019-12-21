@@ -53,6 +53,7 @@ class Password extends Component {
     const ButtonChooseLanguage = locale => {
       return (
         <Button
+          key={locale}
           onClick={() => changeLocale(locale)}
           color="primary"
           variant="outlined"

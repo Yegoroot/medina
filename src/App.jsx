@@ -18,15 +18,25 @@ import messages from './languages/messages'
 // get date from redux
 import { connect } from 'react-redux'
 
+import { ThemeProvider } from '@material-ui/styles'
+import getTheme from './theme'
+
 const App = ({ locale }) => {
+  const theme = getTheme(locale)
   return (
-    <ConnectedRouter history={history}>
-      <IntlProvider locale={locale} messages={messages[locale]}>
-        <>
-          <Routes />
-        </>
-      </IntlProvider>
-    </ConnectedRouter>
+    <ThemeProvider theme={theme}>
+      <ConnectedRouter history={history}>
+        <IntlProvider locale={locale} messages={messages[locale]}>
+          {/* 
+            если поставить тут то, нужно убрать в ф-ии getTheme()
+          <div dir={locale === 'ar' ? 'rtl' : 'ltr'}> */}
+          <>
+            <Routes />
+          </>
+          {/* </div> */}
+        </IntlProvider>
+      </ConnectedRouter>
+    </ThemeProvider>
   )
 }
 
